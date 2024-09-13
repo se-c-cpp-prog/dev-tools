@@ -11,7 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: aminya/setup-cpp@v1
+      - name: Install compilers
+        uses: aminya/setup-cpp@v1
         with:
           compiler: clang-18
 
