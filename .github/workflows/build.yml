@@ -1,0 +1,22 @@
+name: Build development tools
+
+on: push
+
+jobs:
+  linux:
+    name: Building tools on Linux
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aminya/setup-cpp@v1
+        with:
+          compiler: clang-18
+
+      - name: Install base tools
+        run: bash ubuntu/base.sh
+
+      - name: GoogleTest
+        run: bash ubuntu/googletest.sh
