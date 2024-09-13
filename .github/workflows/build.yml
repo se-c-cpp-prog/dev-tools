@@ -21,3 +21,6 @@ jobs:
 
       - name: GoogleTest
         run: bash ubuntu/googletest.sh
+
+      - name: zlib
+        run: bash ubuntu/zlib.sh
