@@ -19,7 +19,7 @@ git clone "${ZLIB_URL}" -b "v${ZLIB_VERSION}" "${ZLIB_SOURCES}"
 mkdir "${ZLIB_BUILD}" && pushd "${ZLIB_BUILD}"
 
 # Build and install ZLIB.
-./configure --prefix="../${ZLIB_INSTALL}/"
+../"${ZLIB_SOURCES}"/configure --prefix="../${ZLIB_INSTALL}/"
 make -j"$(nproc --all)"
 make install
 
