@@ -6,7 +6,7 @@ jobs:
   linux:
     name: Building tools on Linux
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -45,7 +45,7 @@ jobs:
   macos:
     name: Building tools on MacOS
 
-    runs-on: macos-13
+    runs-on: macos-14
 
     steps:
       - uses: actions/checkout@v4
@@ -75,8 +75,9 @@ jobs:
       - name: libdeflate
         run: bash macos/libdeflate.sh
 
-      - name: isa-l
-        run: bash macos/isal.sh
+      # TODO: Make ISA-L building again, when will be fixed.
+      # - name: isa-l
+      #   run: bash macos/isal.sh
 
       - name: FFmpeg
         run: bash macos/ffmpeg.sh
