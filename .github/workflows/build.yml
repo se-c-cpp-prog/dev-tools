@@ -81,3 +81,24 @@ jobs:
 
       - name: FFmpeg
         run: bash macos/ffmpeg.sh
+
+  windows:
+    name: Building tools on Windows
+
+    runs-on: windows-2022
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aminya/setup-cpp@v1
+        with:
+          compiler: msvc-2022
+          vcvarsall: true
+          ninja: true
+          cmake: true
+
+      - name: GoogleTest
+        run: powershell windows/googletest.ps1
+
+      - name: zlib
+        run: powershell windows/zlib.ps1
