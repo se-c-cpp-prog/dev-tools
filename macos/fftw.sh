@@ -22,7 +22,7 @@ rm "${FFTW_DOWNLOADED_ARCHIVE}"
 mkdir "${FFTW_BUILD}" && pushd "${FFTW_BUILD}"
 
 # Build and install FFTW (Single precision).
-cmake ../"${FFTW_SOURCES}"/ -D CMAKE_INSTALL_PREFIX=../"${FFTW_INSTALL}"/ -D ENABLE_FLOAT=ON -D BUILD_SHARED_LIBS=ON
+cmake ../"${FFTW_SOURCES}"/ -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=../"${FFTW_INSTALL}"/ -D ENABLE_FLOAT=ON -D BUILD_SHARED_LIBS=ON
 gmake -j"$(nproc --all)"
 gmake install
 
@@ -36,7 +36,7 @@ rm -rf "${FFTW_BUILD}"
 mkdir "${FFTW_BUILD}" && pushd "${FFTW_BUILD}"
 
 # Build and install FFTW (Double precision).
-cmake ../"${FFTW_SOURCES}"/ -D CMAKE_INSTALL_PREFIX=../"${FFTW_INSTALL}"/ -D ENABLE_DOUBLE=ON -D BUILD_SHARED_LIBS=ON
+cmake ../"${FFTW_SOURCES}"/ -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=../"${FFTW_INSTALL}"/ -D ENABLE_DOUBLE=ON -D BUILD_SHARED_LIBS=ON
 gmake -j"$(nproc --all)"
 gmake install
 
