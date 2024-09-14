@@ -75,8 +75,8 @@ jobs:
       - name: libdeflate
         run: bash macos/libdeflate.sh
   
-      - name: isa-l
-        run: bash macos/isal.sh
+      # - name: isa-l
+      #   run: bash macos/isal.sh
   
       - name: FFmpeg
         run: bash macos/ffmpeg.sh
