@@ -10,7 +10,7 @@ ZLIB_SOURCES='zlib-src'
 ZLIB_BUILD='zlib-build'
 ZLIB_INSTALL='zlib'
 
-ZLIB_TAR="macos-${ZLIB_INSTALL}-${ZLIB_VERSION}.tar.gz"
+ZLIB_ZIP="macos-${ZLIB_INSTALL}-${ZLIB_VERSION}.zip"
 
 # Download ZLIB sources.
 git clone "${ZLIB_URL}" -b "v${ZLIB_VERSION}" "${ZLIB_SOURCES}"
@@ -30,8 +30,7 @@ popd
 rm -rf "${ZLIB_SOURCES}" "${ZLIB_BUILD}"
 
 # Compress installed.
-export GZIP=-9
-tar cvzf "${ZLIB_TAR}" "${ZLIB_INSTALL}"
+zip -9 -r "${ZLIB_ZIP}" "${ZLIB_INSTALL}"
 
 # Check compressed file.
-tar -tf "${ZLIB_TAR}"
+zip --test "${ZLIB_ZIP}"

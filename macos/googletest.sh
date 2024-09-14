@@ -10,7 +10,7 @@ GOOGLETEST_SOURCES='googletest-src'
 GOOGLETEST_BUILD='googletest-build'
 GOOGLETEST_INSTALL='googletest'
 
-GOOGLETEST_TAR="macos-${GOOGLETEST_INSTALL}-${GOOGLETEST_VERSION}.tar.gz"
+GOOGLETEST_ZIP="macos-${GOOGLETEST_INSTALL}-${GOOGLETEST_VERSION}.zip"
 
 # Download GoogleTest sources.
 git clone "${GOOGLETEST_URL}" -b "v${GOOGLETEST_VERSION}" "${GOOGLETEST_SOURCES}"
@@ -30,8 +30,7 @@ popd
 rm -rf "${GOOGLETEST_SOURCES}" "${GOOGLETEST_BUILD}"
 
 # Compress installed.
-export GZIP=-9
-tar cvzf "${GOOGLETEST_TAR}" "${GOOGLETEST_INSTALL}"
+zip -9 -r "${GOOGLETEST_ZIP}" "${GOOGLETEST_INSTALL}"
 
 # Check compressed file.
-tar -tf "${GOOGLETEST_TAR}"
+zip --test "${GOOGLETEST_ZIP}"

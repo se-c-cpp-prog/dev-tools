@@ -10,7 +10,7 @@ LIBDEFLATE_SOURCES='libdeflate-src'
 LIBDEFLATE_BUILD='libdeflate-build'
 LIBDEFLATE_INSTALL='libdeflate'
 
-LIBDEFLATE_TAR="macos-${LIBDEFLATE_INSTALL}-${LIBDEFLATE_VERSION}.tar.gz"
+LIBDEFLATE_ZIP="macos-${LIBDEFLATE_INSTALL}-${LIBDEFLATE_VERSION}.zip"
 
 # Download libdeflate sources.
 git clone "${LIBDEFLATE_URL}" -b "v${LIBDEFLATE_VERSION}" "${LIBDEFLATE_SOURCES}"
@@ -30,8 +30,7 @@ popd
 rm -rf "${LIBDEFLATE_SOURCES}" "${LIBDEFLATE_BUILD}"
 
 # Compress installed.
-export GZIP=-9
-tar cvzf "${LIBDEFLATE_TAR}" "${LIBDEFLATE_INSTALL}"
+zip -9 -r "${LIBDEFLATE_ZIP}" "${LIBDEFLATE_INSTALL}"
 
 # Check compressed file.
-tar -tf "${LIBDEFLATE_TAR}"
+zip --test "${LIBDEFLATE_ZIP}"

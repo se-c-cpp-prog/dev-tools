@@ -11,7 +11,7 @@ ISAL_BUILD='isal-build'
 ISAL_INSTALL='isal'
 ISAL_FULL_INSTALL_PATH="$(realpath ${ISAL_INSTALL})"
 
-ISAL_TAR="macos-${ISAL_INSTALL}-${ISAL_VERSION}.tar.gz"
+ISAL_ZIP="macos-${ISAL_INSTALL}-${ISAL_VERSION}.zip"
 
 # Download isa-l sources.
 git clone "${ISAL_URL}" -b "v${ISAL_VERSION}" "${ISAL_SOURCES}"
@@ -40,8 +40,7 @@ popd
 rm -rf "${ISAL_SOURCES}" "${ISAL_BUILD}"
 
 # Compress installed.
-export GZIP=-9
-tar cvzf "${ISAL_TAR}" "${ISAL_INSTALL}"
+zip -9 -r "${ISAL_ZIP}" "${ISAL_INSTALL}"
 
 # Check compressed file.
-tar -tf "${ISAL_TAR}"
+zip --test "${ISAL_ZIP}"

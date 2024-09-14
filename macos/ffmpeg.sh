@@ -10,7 +10,7 @@ FFMPEG_SOURCES='ffmpeg-src'
 FFMPEG_BUILD='ffmpeg-build'
 FFMPEG_INSTALL='ffmpeg'
 
-FFMPEG_TAR="macos-${FFMPEG_INSTALL}-${FFMPEG_VERSION}.tar.gz"
+FFMPEG_ZIP="macos-${FFMPEG_INSTALL}-${FFMPEG_VERSION}.zip"
 
 # Download FFmpeg sources.
 git clone "${FFMPEG_URL}" -b "release/${FFMPEG_VERSION}" "${FFMPEG_SOURCES}"
@@ -30,8 +30,7 @@ popd
 rm -rf "${FFMPEG_SOURCES}" "${FFMPEG_BUILD}"
 
 # Compress installed.
-export GZIP=-9
-tar cvzf "${FFMPEG_TAR}" "${FFMPEG_INSTALL}"
+zip -9 -r "${FFMPEG_ZIP}" "${FFMPEG_INSTALL}"
 
 # Check compressed file.
-tar -tf "${FFMPEG_TAR}"
+zip --test "${FFMPEG_ZIP}"
