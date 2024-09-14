@@ -45,38 +45,34 @@ jobs:
   macos:
     name: Building tools on MacOS
 
-    runs-on: macos-latest
+    runs-on: macos-14
 
     steps:
       - uses: actions/checkout@v4
 
-      # - uses: aminya/setup-cpp@v1
-      #   with:
-      #     compiler: appleclang-18
-
       - name: Base tools
         run: bash macos/base.sh
   
-      - name: Criterion
-        run: bash macos/criterion.sh
+      # - name: Criterion
+        # run: bash macos/criterion.sh
   
-      - name: GoogleTest
-        run: bash macos/googletest.sh
+      # - name: GoogleTest
+        # run: bash macos/googletest.sh
   
-      - name: zlib
-        run: bash macos/zlib.sh
+      # - name: zlib
+        # run: bash macos/zlib.sh
   
-      - name: FFTW
-        run: bash macos/fftw.sh
+      # - name: FFTW
+        # run: bash macos/fftw.sh
   
-      - name: libpng
-        run: bash macos/libpng.sh
+      # - name: libpng
+        # run: bash macos/libpng.sh
   
-      - name: libdeflate
-        run: bash macos/libdeflate.sh
+      # - name: libdeflate
+        # run: bash macos/libdeflate.sh
   
-      # - name: isa-l
-      #   run: bash macos/isal.sh
+      - name: isa-l
+        run: bash macos/isal.sh
   
-      - name: FFmpeg
-        run: bash macos/ffmpeg.sh
+      # - name: FFmpeg
+        # run: bash macos/ffmpeg.sh
