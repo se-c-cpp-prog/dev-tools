@@ -19,7 +19,7 @@ git clone "${FFMPEG_URL}" -b "release/${FFMPEG_VERSION}" "${FFMPEG_SOURCES}"
 mkdir "${FFMPEG_BUILD}" && pushd "${FFMPEG_BUILD}"
 
 # Build and install FFmpeg.
-../"${FFMPEG_SOURCES}"/configure --disable-x86asm --enable-gpl --prefix="../${FFMPEG_INSTALL}/" --enable-shared --disable-static
+../"${FFMPEG_SOURCES}"/configure --cc="${CC}" --cxx="${CXX}" --disable-x86asm --enable-gpl --prefix="../${FFMPEG_INSTALL}/" --enable-shared --disable-static
 make -j"$(nproc --all)"
 make install
 
