@@ -8,7 +8,7 @@ $libpngVersion = '1.6.43'
 $libpngUrl = 'https://download.sourceforge.net/libpng'
 
 $libpngSources = "libpng-${libpngVersion}"
-$libpngDownloadedArchive = "${linpngSources}.tar.gz"
+$libpngDownloadedArchive = "${libpngSources}.tar.gz"
 $libpngInstall = 'libpng'
 
 $libpngZip = "windows-${libpngInstall}-${libpngVersion}.zip"
