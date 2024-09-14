@@ -92,7 +92,7 @@ jobs:
 
       - uses: aminya/setup-cpp@v1
         with:
-          compiler: msvc-2022
+          compiler: clang-18
           vcvarsall: true
           ninja: true
           cmake: true
