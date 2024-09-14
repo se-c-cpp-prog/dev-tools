@@ -102,3 +102,9 @@ jobs:
 
       - name: zlib
         run: powershell windows/zlib.ps1
+
+      - name: FFTW
+        run: powershell windows/fftw.ps1
+
+      - name: libdeflate
+        run: powershell windows/libdeflate.ps1

@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 
 $zlibVersion = '1.3.1'

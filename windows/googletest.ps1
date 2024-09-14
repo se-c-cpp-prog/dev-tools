@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 
 $googletestVersion = '1.15.2'
@@ -32,4 +32,4 @@ Remove-Item -Recurse -Force "${googletestSources}"
 Remove-Item -Recurse -Force "${googletestBuild}"
 
 # Compress installed.
-Compress-Archive -CompressionLevel Optimal -Path "$googletestInstall" -DestinationPath "$googletestZip"
+Compress-Archive -CompressionLevel Optimal -Path "${googletestInstall}" -DestinationPath "${googletestZip}"
