@@ -10,6 +10,7 @@ LIBPNG_SOURCES="libpng-${LIBPNG_VERSION}"
 LIBPNG_DOWNLOADED_ARCHIVE="${LIBPNG_SOURCES}.tar.gz"
 LIBPNG_BUILD='libpng-build'
 LIBPNG_INSTALL='libpng'
+LIBPNG_FULL_INSTALL_PATH="$(realpath ../${LIBPNG_INSTALL}/)"
 
 LIBPNG_TAR="linux-${LIBPNG_INSTALL}-${LIBPNG_VERSION}.tar.gz"
 
@@ -22,7 +23,7 @@ rm "${LIBPNG_DOWNLOADED_ARCHIVE}"
 mkdir "${LIBPNG_BUILD}" && pushd "${LIBPNG_BUILD}"
 
 # Build and install libpng.
-../"${LIBPNG_SOURCES}"/configure --prefix="../${LIBPNG_INSTALL}/" --enable-shared=yes --enable-static=no
+../"${LIBPNG_SOURCES}"/configure --prefix="${LIBPNG_FULL_INSTALL_PATH}" --enable-shared=yes --enable-static=no
 make -j"$(nproc --all)"
 make install
 
