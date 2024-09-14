@@ -9,6 +9,7 @@ ISAL_URL='https://github.com/intel/isa-l.git'
 ISAL_SOURCES='isal-src'
 ISAL_BUILD='isal-build'
 ISAL_INSTALL='isal'
+ISAL_FULL_INSTALL_PATH="$(realpath ${ISAL_INSTALL})"
 
 ISAL_TAR="linux-${ISAL_INSTALL}-${ISAL_VERSION}.tar.gz"
 
@@ -28,7 +29,7 @@ popd
 mkdir "${ISAL_BUILD}" && pushd "${ISAL_BUILD}"
 
 # Build and install isa-l.
-../"${ISAL_SOURCES}"/configure --prefix="../${ISAL_INSTALL}/"
+../"${ISAL_SOURCES}"/configure --prefix="${ISAL_FULL_INSTALL_PATH}"
 make -j"$(nproc --all)"
 make install
 
