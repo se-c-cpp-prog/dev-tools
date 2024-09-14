@@ -97,6 +97,8 @@ jobs:
           ninja: true
           cmake: true
 
+      - uses: ilammy/setup-nasm@v1.5.1
+
       - name: GoogleTest
         run: powershell windows/googletest.ps1
 
@@ -108,3 +110,6 @@ jobs:
 
       - name: libdeflate
         run: powershell windows/libdeflate.ps1
+
+      - name: isa-l
+        run: powershell windows/isal.ps1
