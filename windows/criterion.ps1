@@ -1,5 +1,8 @@
 #!/usr/bin/env pwsh
 
+$ErrorActionPreference = 'Stop'
+$PSNativeCommandUseErrorActionPreference = $true
+
 $criterionVersion = '2.4.2'
 
 $criterionUrl = 'https://github.com/Snaipe/Criterion.git'
@@ -28,7 +31,7 @@ py -m venv venv
 Pop-Location
 
 # Configure meson.
-.\"${criterionSources}"\venv\Scripts\meson.exe .\"${criterionSources}" "${criterionBuild}" --prefix "${criterionInstall}" --buildtype release --default-library shared -Dc_std=gnu11
+.\criterion-src\venv\Scripts\meson.exe .\"${criterionSources}" "${criterionBuild}" --prefix "${criterionInstall}" --buildtype release --default-library shared -Dc_std=gnu11
 
 # Set working directory to Criterion builds.
 Push-Location "${criterionBuild}"

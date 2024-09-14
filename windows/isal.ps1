@@ -1,5 +1,8 @@
 #!/usr/bin/env pwsh
 
+$ErrorActionPreference = 'Stop'
+$PSNativeCommandUseErrorActionPreference = $true
+
 $isalVersion = '2.31.0'
 
 $isalUrl = 'https://github.com/intel/isa-l.git'
