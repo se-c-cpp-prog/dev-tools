@@ -28,7 +28,7 @@ popd
 mkdir "${ISAL_BUILD}" && pushd "${ISAL_BUILD}"
 
 # Build and install isa-l.
-../"${ISAL_SOURCES}"/configure.sh --prefix="../${ISAL_INSTALL}/"
+../"${ISAL_SOURCES}"/configure --prefix="../${ISAL_INSTALL}/"
 make -j"$(nproc --all)"
 make install
 
