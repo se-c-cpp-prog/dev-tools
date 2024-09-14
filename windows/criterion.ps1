@@ -33,7 +33,7 @@ py -m venv venv
 .\venv\Scripts\pip.exe install meson
 
 # Configure meson.
-.\venv\Scripts\meson.exe "${criterionSourcesFullPath}" "${criterionBuildFullPath}" --prefix "${criterionInstallFullPath}" --buildtype release --default-library shared -Dc_std=gnu11
+.\venv\Scripts\meson.exe "${criterionSourcesFullPath}" "${criterionBuildFullPath}" --prefix "${criterionInstallFullPath}" --buildtype release --default-library shared
 
 # Go back.
 Pop-Location
