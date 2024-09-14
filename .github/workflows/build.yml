@@ -13,7 +13,7 @@ jobs:
 
       - uses: aminya/setup-cpp@v1
         with:
-          compiler: clang-18
+          compiler: gcc-13
 
       - name: Base tools
         run: bash ubuntu/base.sh
