@@ -11,12 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install compilers
-        uses: aminya/setup-cpp@v1
+      - uses: aminya/setup-cpp@v1
         with:
           compiler: clang-18
 
-      - name: Install base tools
+      - name: Base tools
         run: bash ubuntu/base.sh
 
       - name: GoogleTest
@@ -27,6 +26,15 @@ jobs:
 
       - name: FFTW
         run: bash ubuntu/fftw.sh
+
+      - name: libpng
+        run: bash ubuntu/libpng.sh
+
+      - name: libdeflate
+        run: bash ubuntu/libdeflate.sh
+
+      - name: isa-l
+        run: bash ubuntu/isal.sh
 
       - name: FFmpeg
         run: bash ubuntu/ffmpeg.sh
