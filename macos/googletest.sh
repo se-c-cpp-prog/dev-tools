@@ -20,8 +20,8 @@ mkdir "${GOOGLETEST_BUILD}" && pushd "${GOOGLETEST_BUILD}"
 
 # Build and install GoogleTest.
 cmake ../"${GOOGLETEST_SOURCES}"/ -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=../"${GOOGLETEST_INSTALL}"/ -D BUILD_SHARED_LIBS=ON
-make -j"$(nproc --all)"
-make install
+gmake -j"$(nproc --all)"
+gmake install
 
 # Go back.
 popd

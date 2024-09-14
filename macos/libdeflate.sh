@@ -20,8 +20,8 @@ mkdir "${LIBDEFLATE_BUILD}" && pushd "${LIBDEFLATE_BUILD}"
 
 # Build and install libdeflate.
 cmake ../"${LIBDEFLATE_SOURCES}"/ -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=../"${LIBDEFLATE_INSTALL}"/ -D BUILD_SHARED_LIBS=ON
-make -j"$(nproc --all)"
-make install
+gmake -j"$(nproc --all)"
+gmake install
 
 # Go back.
 popd

@@ -20,8 +20,8 @@ mkdir "${ZLIB_BUILD}" && pushd "${ZLIB_BUILD}"
 
 # Build and install ZLIB.
 ../"${ZLIB_SOURCES}"/configure --prefix="../${ZLIB_INSTALL}/"
-make -j"$(nproc --all)"
-make install
+gmake -j"$(nproc --all)"
+gmake install
 
 # Go back.
 popd

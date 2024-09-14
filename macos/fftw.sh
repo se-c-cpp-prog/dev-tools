@@ -23,8 +23,8 @@ mkdir "${FFTW_BUILD}" && pushd "${FFTW_BUILD}"
 
 # Build and install FFTW (Single precision).
 cmake ../"${FFTW_SOURCES}"/ -D CMAKE_INSTALL_PREFIX=../"${FFTW_INSTALL}"/ -D ENABLE_FLOAT=ON -D BUILD_SHARED_LIBS=ON
-make -j"$(nproc --all)"
-make install
+gmake -j"$(nproc --all)"
+gmake install
 
 # Go back.
 popd
@@ -37,8 +37,8 @@ mkdir "${FFTW_BUILD}" && pushd "${FFTW_BUILD}"
 
 # Build and install FFTW (Double precision).
 cmake ../"${FFTW_SOURCES}"/ -D CMAKE_INSTALL_PREFIX=../"${FFTW_INSTALL}"/ -D ENABLE_DOUBLE=ON -D BUILD_SHARED_LIBS=ON
-make -j"$(nproc --all)"
-make install
+gmake -j"$(nproc --all)"
+gmake install
 
 # Go back.
 popd

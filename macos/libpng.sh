@@ -10,6 +10,10 @@ LIBPNG_SOURCES="libpng-${LIBPNG_VERSION}"
 LIBPNG_DOWNLOADED_ARCHIVE="${LIBPNG_SOURCES}.tar.gz"
 LIBPNG_BUILD='libpng-build'
 LIBPNG_INSTALL='libpng'
+
+# Create all necessary directories.
+mkdir "${LIBPNG_INSTALL}"
+
 LIBPNG_FULL_INSTALL_PATH="$(realpath ${LIBPNG_INSTALL})"
 
 LIBPNG_ZIP="macos-${LIBPNG_INSTALL}-${LIBPNG_VERSION}.zip"
@@ -24,8 +28,8 @@ mkdir "${LIBPNG_BUILD}" && pushd "${LIBPNG_BUILD}"
 
 # Build and install libpng.
 ../"${LIBPNG_SOURCES}"/configure --prefix="${LIBPNG_FULL_INSTALL_PATH}" --enable-shared=yes --enable-static=no
-make -j"$(nproc --all)"
-make install
+gmake -j"$(nproc --all)"
+gmake install
 
 # Go back.
 popd
