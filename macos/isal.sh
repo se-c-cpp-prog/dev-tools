@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# Use GNU normal names.
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+
 ISAL_VERSION='2.31.0'
 
 ISAL_URL='https://github.com/intel/isa-l.git'
