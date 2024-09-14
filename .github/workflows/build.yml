@@ -18,23 +18,23 @@ jobs:
       - name: Base tools
         run: bash ubuntu/base.sh
 
-      # - name: GoogleTest
-      #   run: bash ubuntu/googletest.sh
+      - name: GoogleTest
+        run: bash ubuntu/googletest.sh
 
-      # - name: zlib
-      #   run: bash ubuntu/zlib.sh
+      - name: zlib
+        run: bash ubuntu/zlib.sh
 
-      # - name: FFTW
-      #   run: bash ubuntu/fftw.sh
+      - name: FFTW
+        run: bash ubuntu/fftw.sh
 
-      # - name: libpng
-      #   run: bash ubuntu/libpng.sh
+      - name: libpng
+        run: bash ubuntu/libpng.sh
 
-      # - name: libdeflate
-      #   run: bash ubuntu/libdeflate.sh
+      - name: libdeflate
+        run: bash ubuntu/libdeflate.sh
 
       - name: isa-l
         run: bash ubuntu/isal.sh
 
-      # - name: FFmpeg
-      #   run: bash ubuntu/ffmpeg.sh
+      - name: FFmpeg
+        run: bash ubuntu/ffmpeg.sh
