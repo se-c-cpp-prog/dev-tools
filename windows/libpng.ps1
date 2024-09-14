@@ -21,15 +21,16 @@ mkdir "${libpngInstallFullPath}/include/libpng16/"
 mkdir "${libpngInstallFullPath}/lib/"
 
 # Download and extract libpng sources.
-Invoke-WebRequest -Uri "${libpngUrl}/${libpngDownloadedArchive}" -OutFile "${libpngDownloadedArchive}"
+Invoke-WebRequest -UserAgent 'Wget' -Uri "${libpngUrl}/${libpngDownloadedArchive}" -OutFile "${libpngDownloadedArchive}"
 tar xf "${libpngDownloadedArchive}"
 Remove-Item "${libpngDownloadedArchive}"
 
 # Download latest ZLIB version.
 $zlibVersion = '1.3.1'
 $zlibUrl = 'https://github.com/madler/zlib.git'
+$zlibSources = 'zlib'
 
-git clone "${zlibUrl}" -b "v${zlibVersion}"
+git clone "${zlibUrl}" -b "v${zlibVersion}" "${zlibSources}"
 
 # Set working directory to Visual Studio project.
 Push-Location "${libpngSources}"
@@ -85,7 +86,7 @@ Pop-Location
 
 # Remove sources, build.
 Remove-Item -Recurse -Force "${libpngSources}"
-Remove-Item -Recurse -Force 'zlib'
+Remove-Item -Recurse -Force "${zlibSources}"
 
 # Compress installed.
 Compress-Archive -CompressionLevel Optimal -Path "${libpngInstall}" -DestinationPath "${libpngZip}"
