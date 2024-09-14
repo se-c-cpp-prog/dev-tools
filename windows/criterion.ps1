@@ -25,10 +25,6 @@ git clone "${criterionUrl}" -b "v${criterionVersion}" "${criterionSources}"
 
 $criterionSourcesFullPath = Resolve-Path -Path "${criterionSources}"
 
-# Create all necessary directories.
-mkdir "${criterionBuild}"
-mkdir "${criterionInstall}"
-
 # Set working directory to Criterion sources.
 Push-Location "${criterionSources}"
 
