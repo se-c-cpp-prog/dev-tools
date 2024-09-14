@@ -24,3 +24,9 @@ jobs:
 
       - name: zlib
         run: bash ubuntu/zlib.sh
+
+      - name: FFTW
+        run: bash ubuntu/fftw.sh
+
+      - name: FFmpeg
+        run: bsah ubuntu/ffmpeg.sh
