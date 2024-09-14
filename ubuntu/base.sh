@@ -6,4 +6,4 @@ set -euo pipefail
 sudo apt-get update
 
 # Install all basic utils.
-sudo apt-get install -y --no-install-recommends make cmake tar autoconf automake libtool nasm
+sudo apt-get install -y --no-install-recommends make cmake tar autoconf automake libtool nasm python3 python3-pip python3-setuptools python3-wheel ninja-build

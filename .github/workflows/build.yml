@@ -18,6 +18,9 @@ jobs:
       - name: Base tools
         run: bash ubuntu/base.sh
 
+      - name: Criterion
+        run: bash ubuntu/criterion.sh
+
       - name: GoogleTest
         run: bash ubuntu/googletest.sh
 
