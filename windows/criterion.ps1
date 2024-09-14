@@ -11,10 +11,19 @@ $criterionSources = 'criterion-src'
 $criterionBuild = 'criterion-build'
 $criterionInstall = 'criterion'
 
+# Create all necessary directories.
+mkdir "${criterionBuild}"
+mkdir "${criterionInstall}"
+
+$criterionBuildFullPath = Resolve-Path -Path "${criterionBuild}"
+$criterionInstallFullPath = Resolve-Path -Path "${criterionInstall}"
+
 $criterionZip = "windows-${criterionInstall}-${criterionVersion}.zip"
 
 # Download Criterion sources.
 git clone "${criterionUrl}" -b "v${criterionVersion}" "${criterionSources}"
+
+$criterionSourcesFullPath = Resolve-Path -Path "${criterionSources}"
 
 # Create all necessary directories.
 mkdir "${criterionBuild}"
@@ -27,11 +36,11 @@ Push-Location "${criterionSources}"
 py -m venv venv
 .\venv\Scripts\pip.exe install meson
 
+# Configure meson.
+.\venv\Scripts\meson.exe "${criterionSourcesFullPath}" "${criterionBuildFullPath}" --prefix "${criterionInstallFullPath}" --buildtype release --default-library shared -Dc_std=gnu11
+
 # Go back.
 Pop-Location
-
-# Configure meson.
-.\criterion-src\venv\Scripts\meson.exe .\"${criterionSources}" "${criterionBuild}" --prefix "${criterionInstall}" --buildtype release --default-library shared -Dc_std=gnu11
 
 # Set working directory to Criterion builds.
 Push-Location "${criterionBuild}"
