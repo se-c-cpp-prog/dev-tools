@@ -50,9 +50,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: aminya/setup-cpp@v1
-        with:
-          compiler: appleclang-18
+      # - uses: aminya/setup-cpp@v1
+      #   with:
+      #     compiler: appleclang-18
 
       - name: Base tools
         run: bash macos/base.sh
