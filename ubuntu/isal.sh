@@ -15,11 +15,19 @@ ISAL_TAR="linux-${ISAL_INSTALL}-${ISAL_VERSION}.tar.gz"
 # Download isa-l sources.
 git clone "${ISAL_URL}" -b "v${ISAL_VERSION}" "${ISAL_SOURCES}"
 
+# Set working directory to isa-l sources.
+pushd "${ISAL_SOURCES}"
+
+# Autogen.
+./autogen.sh
+
+# Go back.
+popd
+
 # Set working directory to isa-l build.
 mkdir "${ISAL_BUILD}" && pushd "${ISAL_BUILD}"
 
 # Build and install isa-l.
-../"${ISAL_SOURCES}"/autogen.sh
 ../"${ISAL_SOURCES}"/configure.sh --prefix="../${ISAL_INSTALL}/"
 make -j"$(nproc --all)"
 make install
