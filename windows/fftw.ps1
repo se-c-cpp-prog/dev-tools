@@ -50,3 +50,6 @@ Remove-Item -Recurse -Force "${fftwBuild}"
 
 # Compress installed.
 Compress-Archive -CompressionLevel Optimal -Path "${fftwInstall}" -DestinationPath "${fftwZip}"
+
+# Remove installation.
+Remove-Item -Recurse -Force "${fftwInstall}"

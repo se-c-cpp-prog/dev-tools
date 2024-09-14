@@ -90,3 +90,6 @@ Remove-Item -Recurse -Force "${zlibSources}"
 
 # Compress installed.
 Compress-Archive -CompressionLevel Optimal -Path "${libpngInstall}" -DestinationPath "${libpngZip}"
+
+# Remove installation.
+Remove-Item -Recurse -Force "${libpngInstall}"

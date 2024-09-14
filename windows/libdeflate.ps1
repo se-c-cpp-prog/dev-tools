@@ -33,3 +33,6 @@ Remove-Item -Recurse -Force "${libdeflateBuild}"
 
 # Compress installed.
 Compress-Archive -CompressionLevel Optimal -Path "${libdeflateInstall}" -DestinationPath "${libdeflateZip}"
+
+# Remove installation.
+Remove-Item -Recurse -Force "${libdeflateInstall}"

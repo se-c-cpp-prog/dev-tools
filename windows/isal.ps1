@@ -41,3 +41,6 @@ Remove-Item -Recurse -Force "${isalSources}"
 
 # Compress installed.
 Compress-Archive -CompressionLevel Optimal -Path "${isalInstall}" -DestinationPath "${isalZip}"
+
+# Remove installation.
+Remove-Item -Recurse -Force "${isalInstall}"

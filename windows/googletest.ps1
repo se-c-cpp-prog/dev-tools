@@ -33,3 +33,6 @@ Remove-Item -Recurse -Force "${googletestBuild}"
 
 # Compress installed.
 Compress-Archive -CompressionLevel Optimal -Path "${googletestInstall}" -DestinationPath "${googletestZip}"
+
+# Remove installation.
+Remove-Item -Recurse -Force "${googletestInstall}"

@@ -54,3 +54,6 @@ Remove-Item -Recurse -Force "${criterionBuild}"
 
 # Compress installed.
 Compress-Archive -CompressionLevel Optimal -Path "${criterionInstall}" -DestinationPath "${criterionZip}"
+
+# Remove installation.
+Remove-Item -Recurse -Force "${criterionInstall}"

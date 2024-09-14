@@ -33,3 +33,6 @@ Remove-Item -Recurse -Force "${zlibBuild}"
 
 # Compress installed.
 Compress-Archive -CompressionLevel Optimal -Path "${zlibInstall}" -DestinationPath "${zlibZip}"
+
+# Remove installation.
+Remove-Item -Recurse -Force "${zlibInstall}"
