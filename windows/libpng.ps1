@@ -22,7 +22,7 @@ mkdir "${libpngInstallFullPath}/lib/"
 
 # Download and extract libpng sources.
 Invoke-WebRequest -Uri "${libpngUrl}/${libpngDownloadedArchive}" -OutFile "${libpngDownloadedArchive}"
-tar xzvf "${libpngDownloadedArchive}"
+tar xf "${libpngDownloadedArchive}"
 Remove-Item "${libpngDownloadedArchive}"
 
 # Download latest ZLIB version.
