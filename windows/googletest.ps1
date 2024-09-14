@@ -1,5 +1,8 @@
 #!/usr/bin/env pwsh
 
+$ErrorActionPreference = "Stop"
+$PSNativeCommandUseErrorActionPreference = $true
+
 $googletestVersion = '1.15.2'
 
 $googletestUrl = 'https://github.com/google/googletest.git'

@@ -1,5 +1,8 @@
 #!/usr/bin/env pwsh
 
+$ErrorActionPreference = "Stop"
+$PSNativeCommandUseErrorActionPreference = $true
+
 $zlibVersion = '1.3.1'
 
 $zlibUrl = 'https://github.com/madler/zlib.git'
@@ -26,7 +29,7 @@ Pop-Location
 
 # Remove sources, build.
 Remove-Item -Recurse -Force "${zlibSources}"
-Remove-Item -Recurse -Force "${zlibInstall}"
+Remove-Item -Recurse -Force "${zlibBuild}"
 
 # Compress installed.
 Compress-Archive -CompressionLevel Optimal -Path "${zlibInstall}" -DestinationPath "${zlibZip}"
