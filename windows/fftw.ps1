@@ -15,7 +15,7 @@ $fftwInstall = 'fftw'
 $fftwZip = "windows-${fftwInstall}-${fftwVersion}.zip"
 
 # Download and extract FFTW sources.
-Invoke-WebRequest -Uri "${fftwUrl}" -OutFile "${fftwDownloadedArchive}"
+Invoke-WebRequest -Uri "${fftwUrl}/${fftwDownloadedArchive}" -OutFile "${fftwDownloadedArchive}"
 tar xzvf "${fftwDownloadedArchive}"
 Remove-Item "${fftwDownloadedArchive}"
 
