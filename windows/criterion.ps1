@@ -22,13 +22,13 @@ Push-Location "${criterionSources}"
 
 # Setup meson.
 py -m venv venv
-./venv/bin/ install meson
+.\venv\Scripts\pip.exe install meson
 
 # Go back.
 Pop-Location
 
 # Configure meson.
-./"${criterionSources}"/venv/bin/meson ./"${criterionSources}" "${criterionBuild}" --prefix "${criterionInstall}" --buildtype release --default-library shared -Dc_std=gnu11
+.\"${criterionSources}"\venv\Scripts\meson.exe .\"${criterionSources}" "${criterionBuild}" --prefix "${criterionInstall}" --buildtype release --default-library shared -Dc_std=gnu11
 
 # Set working directory to Criterion builds.
 Push-Location "${criterionBuild}"
