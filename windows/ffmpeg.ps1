@@ -32,24 +32,17 @@ $msys2.Start()
 $msys2In = $msys2.StandardInput
 
 # Build and install FFmpeg.
-$commandListFiles = 'ls -al'
 $commandInstallMake = 'pacman -S --noconfirm make'
-$commandChangeDirToBuild = "cd ${ffmpegBuild}" # Strange behavior from GitHub's MSYS2: it's start MSYS2 only in start position.
+$commandChangeDirToBuild = "cd ${ffmpegBuild}" # Strange behavior from GitHub's MSYS2: it's starts MSYS2 only in start position.
 $commandConfigure = "../${ffmpegSources}/configure --prefix=../${ffmpegInstall}/ --toolchain=msvc --disable-x86asm --enable-shared --disable-static --enable-gpl"
-$commandBuild = 'make' # Should use multithreaded, but `nproc` doesn't work in GitHub's MSYS2.
+$commandBuild = 'make -j4'
 $commandInstall = 'make install'
 $commandExit = 'exit'
 
 $msys2In.WriteLine('') # This looks very dirty, but it's only way to prevent encoding error...
 
-$msys2In.WriteLine("${commandListFiles}")
-
 $msys2In.WriteLine("${commandInstallMake}")
-
 $msys2In.WriteLine("${commandChangeDirToBuild}")
-
-$msys2In.WriteLine("${commandListFiles}")
-
 $msys2In.WriteLine("${commandConfigure}")
 $msys2In.WriteLine("${commandBuild}")
 $msys2In.WriteLine("${commandInstall}")
