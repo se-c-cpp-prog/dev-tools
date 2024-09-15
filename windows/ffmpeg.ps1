@@ -40,6 +40,9 @@ $commandBuild = "make -j""(nproc --all)"""
 $commandInstall = 'make install'
 $commandExit = 'exit'
 
+$msys2In.WriteLine('ls -al .')
+$msys2In.WriteLine('ls -al ..')
+
 $msys2In.WriteLine("${commandConfigure}")
 $msys2In.WriteLine("${commandBuild}")
 $msys2In.WriteLine("${commandInstall}")
