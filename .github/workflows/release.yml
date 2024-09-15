@@ -1,0 +1,94 @@
+name: Release development tools
+run-name: ${{ inputs.release_name }} by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        required: true
+        type: string
+        description: "Release tag name."
+      release_name:
+        required: true
+        type: string
+        description: "Release name."
+
+jobs:
+  stage1_init_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/create-release@v1.1.4
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ inputs.release_name }}
+          tag_name: ${{ inputs.tag_name }}
+
+  stage2_build_artifacts:
+    strategy:
+      fail-fast: true
+
+      matrix:
+        toolchain:
+          - { name: Linux,   os: ubuntu,    os_version: 22.04, compiler: gcc-13,        unix: true }
+          - { name: Windows, os: windows,   os_version: 2022,  compiler: msvc-2022,     unix: false }
+          - { name: macOS,   os: macos,     os_version: 14,    compiler: appleclang-18, unix: true }
+
+        library:
+          - { name: googletest, version: 1.15.2 }
+          - { name: zlib,       version: 1.3.1 }
+          - { name: fftw,       version: 3.3.10 }
+          - { name: libpng,     version: 1.6.43 }
+          - { name: libdeflate, version: 1.21 }
+          - { name: ffmpeg,     version: 6.1 }
+
+    runs-on: ${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aminya/setup-cpp@v1
+        with:
+          compiler: ${{ matrix.toolchain.compiler }}
+          vcvarsall: ${{ contains(matrix.toolchain.os, 'windows') }}
+          ninja: true
+          cmake: true
+
+      - uses: ilammy/setup-nasm@v1.5.1
+        if: ${{ matrix.toolchain.os == 'windows' }}
+
+      - name: Build ${{ matrix.library.name }} ${{ matrix.library.version }} (bash)
+        if: ${{ matrix.toolchain.unix }}
+        run: bash ${{ matrix.toolchain.os }}/${{ matrix.library.name }}.sh
+
+      - name: Build ${{ matrix.library.name }} ${{ matrix.library.version }} (pwsh)
+        if: ${{ !matrix.toolchain.unix }}
+        run: powershell ${{ matrix.toolchain.os }}/${{ matrix.library.name }}.ps1
+
+      - name: Upload UNIX artifact archive
+        if: ${{ matrix.toolchain.unix }}
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ARCHIVE_TAR: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}.tar.gz
+        with:
+          file: ${{ env.ARCHIVE_TAR }}
+          asset_name: ${{ env.ARCHIVE_TAR }}
+          tag: ${{ inputs.tag_name }}
+
+      - name: Upload zip-archive
+        if: ${{ !matrix.toolchain.unix }}
+        uses: svenstaro/upload-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ARCHIVE_TAR: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip
+        with:
+          file: ${{ env.ARCHIVE_TAR }}
+          asset_name: ${{ env.ARCHIVE_TAR }}
+          tag: ${{ inputs.tag_name }}
