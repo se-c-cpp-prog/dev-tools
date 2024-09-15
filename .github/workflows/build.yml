@@ -1,6 +1,11 @@
 name: Build development tools
 
-on: push
+on:
+  push:
+    paths:
+      - 'macos/*.sh'
+      - 'ubuntu/*.sh'
+      - 'windows/*.ps1'
 
 jobs:
   linux:
