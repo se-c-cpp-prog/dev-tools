@@ -44,7 +44,7 @@ jobs:
         toolchain:
           - { name: Linux,   os: ubuntu,    os_version: 22.04, compiler: gcc-13,        archive_file_ext: tar.gz }
           - { name: Windows, os: windows,   os_version: 2022,  compiler: msvc-2022,     archive_file_ext: zip }
-          - { name: macOS,   os: macos,     os_version: 14,    compiler: appleclang-18, archive_file_ext: tar.gz }
+          - { name: macOS,   os: macos,     os_version: 14,    compiler: appleclang-18, archive_file_ext: zip }
 
         library:
           - { name: googletest, version: 1.15.2 }
