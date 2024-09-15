@@ -21,7 +21,7 @@ mkdir "${ffmpegInstall}"
 
 # Set working directory to FFmpeg build.
 mkdir "${ffmpegBuild}"
-Push-Location "${ffmpegInstall}"
+Push-Location "${ffmpegBuild}"
 
 # Turn on MSYS2 terminal.
 $msys2 = New-Object System.Diagnostics.Process
@@ -35,7 +35,7 @@ $msys2.Start()
 $msys2In = $msys2.StandardInput
 
 # Build and install FFmpeg.
-$commandConfigure = "../${ffmpegSources}/configure --prefix=../${ffmpegInstall}/ --toolchain=msvc --disable-x86asm --enable-shared --disable-static --enable-gpl"
+$commandConfigure = "bash ../${ffmpegSources}/configure --prefix=../${ffmpegInstall}/ --toolchain=msvc --disable-x86asm --enable-shared --disable-static --enable-gpl"
 $commandBuild = "make -j""(nproc --all)"""
 $commandInstall = 'make install'
 $commandExit = 'exit'
