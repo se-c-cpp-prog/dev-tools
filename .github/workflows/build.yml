@@ -99,6 +99,9 @@ jobs:
 
       - uses: ilammy/setup-nasm@v1.5.1
 
+      - name: FFmpeg
+        run: powershell windows/ffmpeg.ps1
+
       # TODO: Fix me.
       # - name: Criterion
       #   run: powershell windows/criterion.ps1
