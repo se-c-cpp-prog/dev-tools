@@ -18,10 +18,7 @@ git clone "${ffmpegUrl}" -b "release/${ffmpegVersion}" "${ffmpegSources}"
 
 # Create all needed directories.
 mkdir "${ffmpegInstall}"
-
-# Set working directory to FFmpeg build.
 mkdir "${ffmpegBuild}"
-Set-Location "${ffmpegBuild}" # Should be Push-Location, but MSYS2 at start grabs actual working directory.
 
 # Turn on MSYS2 terminal.
 $msys2 = New-Object System.Diagnostics.Process
@@ -35,15 +32,24 @@ $msys2.Start()
 $msys2In = $msys2.StandardInput
 
 # Build and install FFmpeg.
+$commandListFiles = 'ls -al'
 $commandInstallMake = 'pacman -S --noconfirm make'
+$commandChangeDirToBuild = "cd ${ffmpegBuild}" # Strange behavior from GitHub's MSYS2: it's start MSYS2 only in start position.
 $commandConfigure = "../${ffmpegSources}/configure --prefix=../${ffmpegInstall}/ --toolchain=msvc --disable-x86asm --enable-shared --disable-static --enable-gpl"
-$commandBuild = 'make -j"(nproc --all)"'
+$commandBuild = 'make' # Should use multithreaded, but `nproc` doesn't work in GitHub's MSYS2.
 $commandInstall = 'make install'
 $commandExit = 'exit'
 
 $msys2In.WriteLine('') # This looks very dirty, but it's only way to prevent encoding error...
 
+$msys2In.WriteLine("${commandListFiles}")
+
 $msys2In.WriteLine("${commandInstallMake}")
+
+$msys2In.WriteLine("${commandChangeDirToBuild}")
+
+$msys2In.WriteLine("${commandListFiles}")
+
 $msys2In.WriteLine("${commandConfigure}")
 $msys2In.WriteLine("${commandBuild}")
 $msys2In.WriteLine("${commandInstall}")
@@ -51,9 +57,6 @@ $msys2In.WriteLine("${commandInstall}")
 # Turn off MSYS2 terminal.
 $msys2In.WriteLine("${commandExit}")
 $msys2.WaitForExit()
-
-# Go back.
-Set-Location .. # See above.
 
 # Remove sources, build.
 Remove-Item -Recurse -Force "${ffmpegSources}"
