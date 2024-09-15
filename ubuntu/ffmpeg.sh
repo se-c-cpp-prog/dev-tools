@@ -10,7 +10,7 @@ FFMPEG_SOURCES='ffmpeg-src'
 FFMPEG_BUILD='ffmpeg-build'
 FFMPEG_INSTALL='ffmpeg'
 
-FFMPEG_TAR="linux-${FFMPEG_INSTALL}-${FFMPEG_VERSION}.tar.gz"
+FFMPEG_TAR="ubuntu-${FFMPEG_INSTALL}-${FFMPEG_VERSION}.tar.gz"
 
 # Download FFmpeg sources.
 git clone "${FFMPEG_URL}" -b "release/${FFMPEG_VERSION}" "${FFMPEG_SOURCES}"

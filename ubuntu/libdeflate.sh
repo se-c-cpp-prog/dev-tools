@@ -10,7 +10,7 @@ LIBDEFLATE_SOURCES='libdeflate-src'
 LIBDEFLATE_BUILD='libdeflate-build'
 LIBDEFLATE_INSTALL='libdeflate'
 
-LIBDEFLATE_TAR="linux-${LIBDEFLATE_INSTALL}-${LIBDEFLATE_VERSION}.tar.gz"
+LIBDEFLATE_TAR="ubuntu-${LIBDEFLATE_INSTALL}-${LIBDEFLATE_VERSION}.tar.gz"
 
 # Download libdeflate sources.
 git clone "${LIBDEFLATE_URL}" -b "v${LIBDEFLATE_VERSION}" "${LIBDEFLATE_SOURCES}"

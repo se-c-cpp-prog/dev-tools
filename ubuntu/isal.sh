@@ -11,7 +11,7 @@ ISAL_BUILD='isal-build'
 ISAL_INSTALL='isal'
 ISAL_FULL_INSTALL_PATH="$(realpath ${ISAL_INSTALL})"
 
-ISAL_TAR="linux-${ISAL_INSTALL}-${ISAL_VERSION}.tar.gz"
+ISAL_TAR="ubuntu-${ISAL_INSTALL}-${ISAL_VERSION}.tar.gz"
 
 # Download isa-l sources.
 git clone "${ISAL_URL}" -b "v${ISAL_VERSION}" "${ISAL_SOURCES}"

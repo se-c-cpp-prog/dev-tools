@@ -10,7 +10,7 @@ ZLIB_SOURCES='zlib-src'
 ZLIB_BUILD='zlib-build'
 ZLIB_INSTALL='zlib'
 
-ZLIB_TAR="linux-${ZLIB_INSTALL}-${ZLIB_VERSION}.tar.gz"
+ZLIB_TAR="ubuntu-${ZLIB_INSTALL}-${ZLIB_VERSION}.tar.gz"
 
 # Download ZLIB sources.
 git clone "${ZLIB_URL}" -b "v${ZLIB_VERSION}" "${ZLIB_SOURCES}"

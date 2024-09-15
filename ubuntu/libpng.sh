@@ -12,7 +12,7 @@ LIBPNG_BUILD='libpng-build'
 LIBPNG_INSTALL='libpng'
 LIBPNG_FULL_INSTALL_PATH="$(realpath ${LIBPNG_INSTALL})"
 
-LIBPNG_TAR="linux-${LIBPNG_INSTALL}-${LIBPNG_VERSION}.tar.gz"
+LIBPNG_TAR="ubuntu-${LIBPNG_INSTALL}-${LIBPNG_VERSION}.tar.gz"
 
 # Download and extract libpng sources.
 wget "${LIBPNG_URL}/${LIBPNG_DOWNLOADED_ARCHIVE}"

@@ -11,7 +11,7 @@ FFTW_DOWNLOADED_ARCHIVE="${FFTW_SOURCES}.tar.gz"
 FFTW_BUILD='fftw-build'
 FFTW_INSTALL='fftw'
 
-FFTW_TAR="linux-${FFTW_INSTALL}-${FFTW_VERSION}.tar.gz"
+FFTW_TAR="ubuntu-${FFTW_INSTALL}-${FFTW_VERSION}.tar.gz"
 
 # Download and extract FFTW sources.
 wget "${FFTW_URL}/${FFTW_DOWNLOADED_ARCHIVE}"
