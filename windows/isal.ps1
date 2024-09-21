@@ -8,9 +8,7 @@ $isalVersion = '2.31.0'
 $isalUrl = 'https://github.com/intel/isa-l.git'
 
 $isalSources = 'isal-src'
-$isalInstall = 'isal'
-
-$isalZip = "windows-${ISAL_INSTALL}-${ISAL_VERSION}.zip"
+$isalInstall = 'isal-install'
 
 # Download isa-l sources.
 git clone "${isalUrl}" -b "v${isalVersion}" "${isalSources}"
@@ -38,9 +36,3 @@ Pop-Location
 
 # Remove sources, build.
 Remove-Item -Recurse -Force "${isalSources}"
-
-# Compress installed.
-Compress-Archive -CompressionLevel Optimal -Path "${isalInstall}" -DestinationPath "${isalZip}"
-
-# Remove installation.
-Remove-Item -Recurse -Force "${isalInstall}"

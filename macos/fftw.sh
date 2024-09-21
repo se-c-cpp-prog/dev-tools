@@ -9,9 +9,7 @@ FFTW_URL='https://www.fftw.org'
 FFTW_SOURCES="fftw-${FFTW_VERSION}"
 FFTW_DOWNLOADED_ARCHIVE="${FFTW_SOURCES}.tar.gz"
 FFTW_BUILD='fftw-build'
-FFTW_INSTALL='fftw'
-
-FFTW_ZIP="macos-${FFTW_INSTALL}-${FFTW_VERSION}.zip"
+FFTW_INSTALL='fftw-install'
 
 # Download and extract FFTW sources.
 wget "${FFTW_URL}/${FFTW_DOWNLOADED_ARCHIVE}"

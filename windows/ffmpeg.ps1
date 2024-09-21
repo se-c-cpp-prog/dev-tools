@@ -9,9 +9,7 @@ $ffmpegUrl = 'https://git.ffmpeg.org/ffmpeg.git'
 
 $ffmpegSources = 'ffmpeg-src'
 $ffmpegBuild = 'ffmpeg-build'
-$ffmpegInstall = 'ffmpeg'
-
-$ffmpegZip = "windows-${ffmpegInstall}-${ffmpegVersion}.zip"
+$ffmpegInstall = 'ffmpeg-install'
 
 # Download FFmpeg sources.
 git clone "${ffmpegUrl}" -b "release/${ffmpegVersion}" "${ffmpegSources}"
@@ -54,9 +52,3 @@ $msys2.WaitForExit()
 # Remove sources, build.
 Remove-Item -Recurse -Force "${ffmpegSources}"
 Remove-Item -Recurse -Force "${ffmpegBuild}"
-
-# Compress installed.
-Compress-Archive -CompressionLevel Optimal -Path "${ffmpegInstall}" -DestinationPath "${ffmpegZip}"
-
-# Remove installation.
-Remove-Item -Recurse -Force "${ffmpegInstall}"

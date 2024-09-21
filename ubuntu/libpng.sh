@@ -9,10 +9,8 @@ LIBPNG_URL='https://download.sourceforge.net/libpng'
 LIBPNG_SOURCES="libpng-${LIBPNG_VERSION}"
 LIBPNG_DOWNLOADED_ARCHIVE="${LIBPNG_SOURCES}.tar.gz"
 LIBPNG_BUILD='libpng-build'
-LIBPNG_INSTALL='libpng'
+LIBPNG_INSTALL='libpng-install'
 LIBPNG_FULL_INSTALL_PATH="$(realpath ${LIBPNG_INSTALL})"
-
-LIBPNG_TAR="ubuntu-${LIBPNG_INSTALL}-${LIBPNG_VERSION}.tar.gz"
 
 # Download and extract libpng sources.
 wget "${LIBPNG_URL}/${LIBPNG_DOWNLOADED_ARCHIVE}"
@@ -32,10 +30,3 @@ popd
 
 # Remove sources, build.
 rm -rf "${LIBPNG_SOURCES}" "${LIBPNG_BUILD}"
-
-# Compress installed.
-export GZIP=-9
-tar cvzf "${LIBPNG_TAR}" "${LIBPNG_INSTALL}"
-
-# Check compressed file.
-tar -tf "${LIBPNG_TAR}"

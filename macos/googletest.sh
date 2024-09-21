@@ -8,9 +8,7 @@ GOOGLETEST_URL='https://github.com/google/googletest.git'
 
 GOOGLETEST_SOURCES='googletest-src'
 GOOGLETEST_BUILD='googletest-build'
-GOOGLETEST_INSTALL='googletest'
-
-GOOGLETEST_ZIP="macos-${GOOGLETEST_INSTALL}-${GOOGLETEST_VERSION}.zip"
+GOOGLETEST_INSTALL='googletest-install'
 
 # Download GoogleTest sources.
 git clone "${GOOGLETEST_URL}" -b "v${GOOGLETEST_VERSION}" "${GOOGLETEST_SOURCES}"
@@ -28,9 +26,3 @@ popd
 
 # Remove sources, build.
 rm -rf "${GOOGLETEST_SOURCES}" "${GOOGLETEST_BUILD}"
-
-# Compress installed.
-zip -9 -r "${GOOGLETEST_ZIP}" "${GOOGLETEST_INSTALL}"
-
-# Check compressed file.
-zip --test "${GOOGLETEST_ZIP}"

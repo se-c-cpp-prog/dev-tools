@@ -9,9 +9,7 @@ $libpngUrl = 'https://download.sourceforge.net/libpng'
 
 $libpngSources = "libpng-${libpngVersion}"
 $libpngDownloadedArchive = "${libpngSources}.tar.gz"
-$libpngInstall = 'libpng'
-
-$libpngZip = "windows-${libpngInstall}-${libpngVersion}.zip"
+$libpngInstall = 'libpng-install'
 
 # Create all necessary directories.
 mkdir "${libpngInstall}"
@@ -87,9 +85,3 @@ Pop-Location
 # Remove sources, build.
 Remove-Item -Recurse -Force "${libpngSources}"
 Remove-Item -Recurse -Force "${zlibSources}"
-
-# Compress installed.
-Compress-Archive -CompressionLevel Optimal -Path "${libpngInstall}" -DestinationPath "${libpngZip}"
-
-# Remove installation.
-Remove-Item -Recurse -Force "${libpngInstall}"

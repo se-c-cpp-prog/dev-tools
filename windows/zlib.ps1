@@ -9,9 +9,7 @@ $zlibUrl = 'https://github.com/madler/zlib.git'
 
 $zlibSources = 'zlib-src'
 $zlibBuild = 'zlib-build'
-$zlibInstall = 'zlib'
-
-$zlibZip = "windows-${zlibInstall}-${zlibVersion}.zip"
+$zlibInstall = 'zlib-install'
 
 # Download ZLIB sources.
 git clone "${zlibUrl}" -b "v${zlibVersion}" "${zlibSources}"
@@ -30,9 +28,3 @@ Pop-Location
 # Remove sources, build.
 Remove-Item -Recurse -Force "${zlibSources}"
 Remove-Item -Recurse -Force "${zlibBuild}"
-
-# Compress installed.
-Compress-Archive -CompressionLevel Optimal -Path "${zlibInstall}" -DestinationPath "${zlibZip}"
-
-# Remove installation.
-Remove-Item -Recurse -Force "${zlibInstall}"

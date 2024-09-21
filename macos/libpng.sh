@@ -9,14 +9,12 @@ LIBPNG_URL='https://download.sourceforge.net/libpng'
 LIBPNG_SOURCES="libpng-${LIBPNG_VERSION}"
 LIBPNG_DOWNLOADED_ARCHIVE="${LIBPNG_SOURCES}.tar.gz"
 LIBPNG_BUILD='libpng-build'
-LIBPNG_INSTALL='libpng'
+LIBPNG_INSTALL='libpng-install'
 
 # Create all necessary directories.
 mkdir "${LIBPNG_INSTALL}"
 
 LIBPNG_FULL_INSTALL_PATH="$(realpath ${LIBPNG_INSTALL})"
-
-LIBPNG_ZIP="macos-${LIBPNG_INSTALL}-${LIBPNG_VERSION}.zip"
 
 # Download and extract libpng sources.
 wget "${LIBPNG_URL}/${LIBPNG_DOWNLOADED_ARCHIVE}"
@@ -36,9 +34,3 @@ popd
 
 # Remove sources, build.
 rm -rf "${LIBPNG_SOURCES}" "${LIBPNG_BUILD}"
-
-# Compress installed.
-zip -9 -r "${LIBPNG_ZIP}" "${LIBPNG_INSTALL}"
-
-# Check compressed file.
-zip --test "${LIBPNG_ZIP}"

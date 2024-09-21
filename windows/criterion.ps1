@@ -9,7 +9,7 @@ $criterionUrl = 'https://github.com/Snaipe/Criterion.git'
 
 $criterionSources = 'criterion-src'
 $criterionBuild = 'criterion-build'
-$criterionInstall = 'criterion'
+$criterionInstall = 'criterion-install'
 
 # Create all necessary directories.
 mkdir "${criterionBuild}"
@@ -17,8 +17,6 @@ mkdir "${criterionInstall}"
 
 $criterionBuildFullPath = Resolve-Path -Path "${criterionBuild}"
 $criterionInstallFullPath = Resolve-Path -Path "${criterionInstall}"
-
-$criterionZip = "windows-${criterionInstall}-${criterionVersion}.zip"
 
 # Download Criterion sources.
 git clone "${criterionUrl}" -b "v${criterionVersion}" "${criterionSources}"
@@ -51,9 +49,3 @@ Pop-Location
 # Remove sources, build.
 Remove-Item -Recurse -Force "${criterionSources}"
 Remove-Item -Recurse -Force "${criterionBuild}"
-
-# Compress installed.
-Compress-Archive -CompressionLevel Optimal -Path "${criterionInstall}" -DestinationPath "${criterionZip}"
-
-# Remove installation.
-Remove-Item -Recurse -Force "${criterionInstall}"

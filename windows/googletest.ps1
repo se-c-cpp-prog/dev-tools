@@ -9,9 +9,7 @@ $googletestUrl = 'https://github.com/google/googletest.git'
 
 $googletestSources = 'googletest-src'
 $googletestBuild = 'googletest-build'
-$googletestInstall = 'googletest'
-
-$googletestZip = "windows-${googletestInstall}-${googletestVersion}.zip"
+$googletestInstall = 'googletest-install'
 
 # Download GoogleTest sources.
 git clone "${googletestUrl}" -b "v${googletestVersion}" "${googletestSources}"
@@ -30,9 +28,3 @@ Pop-Location
 # Remove sources, build.
 Remove-Item -Recurse -Force "${googletestSources}"
 Remove-Item -Recurse -Force "${googletestBuild}"
-
-# Compress installed.
-Compress-Archive -CompressionLevel Optimal -Path "${googletestInstall}" -DestinationPath "${googletestZip}"
-
-# Remove installation.
-Remove-Item -Recurse -Force "${googletestInstall}"

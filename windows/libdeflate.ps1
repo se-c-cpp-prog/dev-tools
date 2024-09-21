@@ -9,9 +9,7 @@ $libdeflateUrl = 'https://github.com/ebiggers/libdeflate.git'
 
 $libdeflateSources = 'libdeflate-src'
 $libdeflateBuild = 'libdeflate-build'
-$libdeflateInstall = 'libdeflate'
-
-$libdeflateZip = "windows-${libdeflateInstall}-${libdeflateVersion}.zip"
+$libdeflateInstall = 'libdeflate-install'
 
 # Download libdeflate sources.
 git clone "${libdeflateUrl}" -b "v${libdeflateVersion}" "${libdeflateSources}"
@@ -30,9 +28,3 @@ Pop-Location
 # Remove sources, build.
 Remove-Item -Recurse -Force "${libdeflateSources}"
 Remove-Item -Recurse -Force "${libdeflateBuild}"
-
-# Compress installed.
-Compress-Archive -CompressionLevel Optimal -Path "${libdeflateInstall}" -DestinationPath "${libdeflateZip}"
-
-# Remove installation.
-Remove-Item -Recurse -Force "${libdeflateInstall}"

@@ -8,9 +8,7 @@ GOOGLETEST_URL='https://github.com/google/googletest.git'
 
 GOOGLETEST_SOURCES='googletest-src'
 GOOGLETEST_BUILD='googletest-build'
-GOOGLETEST_INSTALL='googletest'
-
-GOOGLETEST_TAR="ubuntu-${GOOGLETEST_INSTALL}-${GOOGLETEST_VERSION}.tar.gz"
+GOOGLETEST_INSTALL='googletest-install'
 
 # Download GoogleTest sources.
 git clone "${GOOGLETEST_URL}" -b "v${GOOGLETEST_VERSION}" "${GOOGLETEST_SOURCES}"
@@ -28,10 +26,3 @@ popd
 
 # Remove sources, build.
 rm -rf "${GOOGLETEST_SOURCES}" "${GOOGLETEST_BUILD}"
-
-# Compress installed.
-export GZIP=-9
-tar cvzf "${GOOGLETEST_TAR}" "${GOOGLETEST_INSTALL}"
-
-# Check compressed file.
-tar -tf "${GOOGLETEST_TAR}"

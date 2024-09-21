@@ -9,9 +9,7 @@ FFTW_URL='https://www.fftw.org'
 FFTW_SOURCES="fftw-${FFTW_VERSION}"
 FFTW_DOWNLOADED_ARCHIVE="${FFTW_SOURCES}.tar.gz"
 FFTW_BUILD='fftw-build'
-FFTW_INSTALL='fftw'
-
-FFTW_TAR="ubuntu-${FFTW_INSTALL}-${FFTW_VERSION}.tar.gz"
+FFTW_INSTALL='fftw-install'
 
 # Download and extract FFTW sources.
 wget "${FFTW_URL}/${FFTW_DOWNLOADED_ARCHIVE}"
@@ -45,10 +43,3 @@ popd
 
 # Remove sources, build.
 rm -rf "${FFTW_SOURCES}" "${FFTW_BUILD}"
-
-# Compress installed.
-export GZIP=-9
-tar cvzf "${FFTW_TAR}" "${FFTW_INSTALL}"
-
-# Check compressed file.
-tar -tf "${FFTW_TAR}"

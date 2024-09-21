@@ -8,9 +8,7 @@ FFMPEG_URL='https://git.ffmpeg.org/ffmpeg.git'
 
 FFMPEG_SOURCES='ffmpeg-src'
 FFMPEG_BUILD='ffmpeg-build'
-FFMPEG_INSTALL='ffmpeg'
-
-FFMPEG_TAR="ubuntu-${FFMPEG_INSTALL}-${FFMPEG_VERSION}.tar.gz"
+FFMPEG_INSTALL='ffmpeg-install'
 
 # Download FFmpeg sources.
 git clone "${FFMPEG_URL}" -b "release/${FFMPEG_VERSION}" "${FFMPEG_SOURCES}"
@@ -28,10 +26,3 @@ popd
 
 # Remove sources, build.
 rm -rf "${FFMPEG_SOURCES}" "${FFMPEG_BUILD}"
-
-# Compress installed.
-export GZIP=-9
-tar cvzf "${FFMPEG_TAR}" "${FFMPEG_INSTALL}"
-
-# Check compressed file.
-tar -tf "${FFMPEG_TAR}"

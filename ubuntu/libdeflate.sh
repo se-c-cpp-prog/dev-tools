@@ -8,9 +8,7 @@ LIBDEFLATE_URL='https://github.com/ebiggers/libdeflate.git'
 
 LIBDEFLATE_SOURCES='libdeflate-src'
 LIBDEFLATE_BUILD='libdeflate-build'
-LIBDEFLATE_INSTALL='libdeflate'
-
-LIBDEFLATE_TAR="ubuntu-${LIBDEFLATE_INSTALL}-${LIBDEFLATE_VERSION}.tar.gz"
+LIBDEFLATE_INSTALL='libdeflate-install'
 
 # Download libdeflate sources.
 git clone "${LIBDEFLATE_URL}" -b "v${LIBDEFLATE_VERSION}" "${LIBDEFLATE_SOURCES}"
@@ -28,10 +26,3 @@ popd
 
 # Remove sources, build.
 rm -rf "${LIBDEFLATE_SOURCES}" "${LIBDEFLATE_BUILD}"
-
-# Compress installed.
-export GZIP=-9
-tar cvzf "${LIBDEFLATE_TAR}" "${LIBDEFLATE_INSTALL}"
-
-# Check compressed file.
-tar -tf "${LIBDEFLATE_TAR}"

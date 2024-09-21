@@ -10,9 +10,7 @@ $fftwUrl = 'https://www.fftw.org'
 $fftwSources = "fftw-${fftwVersion}"
 $fftwDownloadedArchive = "${fftwSources}.tar.gz"
 $fftwBuild = 'fftw-build'
-$fftwInstall = 'fftw'
-
-$fftwZip = "windows-${fftwInstall}-${fftwVersion}.zip"
+$fftwInstall = 'fftw-install'
 
 # Download and extract FFTW sources.
 Invoke-WebRequest -Uri "${fftwUrl}/${fftwDownloadedArchive}" -OutFile "${fftwDownloadedArchive}"
@@ -47,9 +45,3 @@ Pop-Location
 # Remove sources, build.
 Remove-Item -Recurse -Force "${fftwSources}"
 Remove-Item -Recurse -Force "${fftwBuild}"
-
-# Compress installed.
-Compress-Archive -CompressionLevel Optimal -Path "${fftwInstall}" -DestinationPath "${fftwZip}"
-
-# Remove installation.
-Remove-Item -Recurse -Force "${fftwInstall}"
