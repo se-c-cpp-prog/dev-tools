@@ -78,15 +78,15 @@ jobs:
         shell: bash
         run: |
           bash ${{ matrix.toolchain.os }}/${{ matrix.library.name }}.sh
-          zip -9 -r ${{ matrix.library.name }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip ${{ matrix.library.name }}-install
-          zip --test ${{ matrix.library.name }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip
+          zip -9 -r ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip ${{ matrix.library.name }}-install
+          zip --test ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip
 
       - name: Build ${{ matrix.library.name }}
         if: ${{ contains(matrix.toolchain.os, 'windows') }}
         shell: powershell
         run: |
           powershell ${{ matrix.toolchain.os }}/${{ matrix.library.name }}.ps1
-          Compress-Archive -CompressionLevel Optimal -Path ${{ matrix.library.name }}-install -DestinationPath ${{ matrix.library.name }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip
+          Compress-Archive -CompressionLevel Optimal -Path ${{ matrix.library.name }}-install -DestinationPath ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip
 
       - name: Upload ${{ matrix.library.name }} artifact archive
         uses: svenstaro/upload-release-action@v2
