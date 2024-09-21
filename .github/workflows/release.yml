@@ -42,9 +42,9 @@ jobs:
 
       matrix:
         toolchain:
-          - { name: Linux,   os: ubuntu,    os_version: 22.04, compiler: gcc-13,        archive_file_ext: tar.gz }
-          - { name: Windows, os: windows,   os_version: 2022,  compiler: msvc-2022,     archive_file_ext: zip }
-          - { name: macOS,   os: macos,     os_version: 14,    compiler: appleclang-18, archive_file_ext: zip }
+          - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-13        }
+          - { name: Windows, os: windows, os_version: 2022,  compiler: msvc-2022     }
+          - { name: macOS,   os: macos,   os_version: 14,    compiler: appleclang-18 }
 
         library:
           - { name: googletest, version: 1.15.2 }
@@ -67,25 +67,32 @@ jobs:
           cmake: true
 
       - uses: ilammy/setup-nasm@v1.5.1
-        if: ${{ matrix.toolchain.os == 'windows' }}
+        if: ${{ contains(matrix.toolchain.os, 'windows') }}
 
       - name: Install UNIX base tools
-        if: ${{ matrix.toolchain.os != 'windows' }}
+        if: ${{ !contains(matrix.toolchain.os, 'windows') }}
         run: bash ${{ matrix.toolchain.os }}/base.sh
 
       - name: Build ${{ matrix.library.name }} (UNIX)
-        if: ${{ matrix.toolchain.os != 'windows' }}
-        run: bash ${{ matrix.toolchain.os }}/${{ matrix.library.name }}.sh
+        if: ${{ !contains(matrix.toolchain.os, 'windows') }}
+        shell: bash
+        run: |
+          bash ${{ matrix.toolchain.os }}/${{ matrix.library.name }}.sh
+          zip -9 -r ${{ matrix.library.name }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip ${{ matrix.library.name }}-install
+          zip --test ${{ matrix.library.name }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip
 
       - name: Build ${{ matrix.library.name }}
-        if: ${{ matrix.toolchain.os == 'windows' }}
-        run: powershell ${{ matrix.toolchain.os }}/${{ matrix.library.name }}.ps1
+        if: ${{ contains(matrix.toolchain.os, 'windows') }}
+        shell: powershell
+        run: |
+          powershell ${{ matrix.toolchain.os }}/${{ matrix.library.name }}.ps1
+          Compress-Archive -CompressionLevel Optimal -Path ${{ matrix.library.name }}-install -DestinationPath ${{ matrix.library.name }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip
 
       - name: Upload ${{ matrix.library.name }} artifact archive
         uses: svenstaro/upload-release-action@v2
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          ARCHIVE_BASENAME: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}.${{ matrix.toolchain.archive_file_ext }}
+          ARCHIVE_BASENAME: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip
         with:
           file: ${{ env.ARCHIVE_BASENAME }}
           asset_name: ${{ env.ARCHIVE_BASENAME }}
