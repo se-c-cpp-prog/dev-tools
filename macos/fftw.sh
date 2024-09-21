@@ -43,9 +43,3 @@ popd
 
 # Remove sources, build.
 rm -rf "${FFTW_SOURCES}" "${FFTW_BUILD}"
-
-# Compress installed.
-zip -9 -r "${FFTW_ZIP}" "${FFTW_INSTALL}"
-
-# Check compressed file.
-zip --test "${FFTW_ZIP}"
