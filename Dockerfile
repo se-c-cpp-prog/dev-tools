@@ -4,6 +4,7 @@ ARG COMPILER_NAME
 ARG COMPILER_VERSION
 
 ENV SDK=/sdk
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install SUDO.
 RUN apt-get update -qq && apt-get install -y sudo
