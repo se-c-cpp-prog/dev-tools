@@ -1,0 +1,30 @@
+name: Build Docker images
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Dockerfile'
+      - '.github/workflows/docker.yml'
+      - 'ubuntu/*.sh'
+
+jobs:
+  build:
+    name: "Building image (Ubuntu: ${{ matrix.compiler.name }})"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler:
+          - { name: clang, version: 18 }
+          - { name: gcc,   version: 11 }
+
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: "se-c-cpp-prog/devtool:${{ matrix.compiler.name }}-${{ matrix.compiler.version }}"
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build --tag "${{ env.IMAGE_NAME }}" --build-arg COMPILER_NAME=${{ matrix.compiler.name }} --build-arg COMPILER_VERSION=${{ matrix.compiler.version }} -f Dockerfile .
