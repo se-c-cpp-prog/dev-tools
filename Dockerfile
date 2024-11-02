@@ -6,7 +6,7 @@ ARG COMPILER_VERSION
 ENV SDK=/sdk
 
 # Install SUDO.
-RUN apt-get install -y sudo
+RUN apt-get update -qq && apt-get install -y sudo
 
 # Install base utils.
 COPY ubuntu/base.sh .
