@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'Dockerfile'
+      - 'images/Dockerfile'
       - '.github/workflows/docker.yml'
       - 'ubuntu/*.sh'
 
@@ -22,9 +22,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_NAME: "se-c-cpp-prog/devtool:${{ matrix.compiler.name }}-${{ matrix.compiler.version }}"
+      IMAGE_NAME: "se-c-cpp-prog/devtool:ubuntu-${{ matrix.compiler.name }}${{ matrix.compiler.version }}"
 
     steps:
       - uses: actions/checkout@v4
       - name: Build Docker image
-        run: docker build --tag "${{ env.IMAGE_NAME }}" --build-arg COMPILER_NAME=${{ matrix.compiler.name }} --build-arg COMPILER_VERSION=${{ matrix.compiler.version }} -f Dockerfile .
+        run: docker build --tag "${{ env.IMAGE_NAME }}" --build-arg IMAGE_COMPILER_NAME=${{ matrix.compiler.name }} --build-arg IMAGE_COMPILER_VERS=${{ matrix.compiler.version }} -f images/Dockerfile .
