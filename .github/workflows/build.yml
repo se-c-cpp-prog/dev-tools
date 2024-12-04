@@ -91,14 +91,14 @@ jobs:
   windows:
     name: Building tools on Windows
 
-    runs-on: windows-2022
+    runs-on: windows-2019
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: aminya/setup-cpp@v1
         with:
-          compiler: msvc-2022
+          compiler: msvc-2019
           vcvarsall: true
           ninja: true
           cmake: true

@@ -44,10 +44,10 @@ $replace = '   <TreatWarningAsError>false</TreatWarningAsError>'
 
 # Build Visual Studio project.
 $configuration = 'Release'
-$platform = 'Win32'
-$platformToolset = 'v143' # MSVC 2022
+$platform = 'x64'
+# $platformToolset = 'v143' # MSVC 2022
 
-msbuild vstudio.sln /p:Configuration=$configuration /p:Platform=$platform /p:PlatformToolset=$platformToolset
+msbuild vstudio.sln /p:Configuration=$configuration /p:Platform=$platform # /p:PlatformToolset=$platformToolset
 
 # Set working directory to Release's.
 Push-Location "${configuration}"
