@@ -10,13 +10,35 @@ on:
 
 jobs:
   build:
-    name: "Building devtool"
-    runs-on: ubuntu-latest
+    name: "Building devtool: ${{ matrix.image.name }}"
+
+    strategy:
+      fail-fast: true
+
+      matrix:
+        image:
+          - { name: Linux Default, os: ubuntu, os_version: 22.04, edition: default }
+          - { name: Linux Full,    os: ubuntu, os_version: 22.04, edition: full    }
+
+    runs-on: ${{ matrix.image.os }}-${{ matrix.image.os_version }}
 
     env:
-      IMAGE_NAME: "se-c-cpp-prog/devtool:ubuntu"
+      IMAGE_NAME: "se-c-cpp-prog/devtool:${{ matrix.image.os }}-${{ matrix.image.edition }}"
+      TAR_NAME: "devtool-${{ matrix.image.os }}-${{ matrix.image.edition }}.tar"
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Build Docker image
-        run: docker build --tag "${{ env.IMAGE_NAME }}" -f images/Dockerfile .
+        run: docker build --tag "${{ env.IMAGE_NAME }}" --build-arg DEVTOOL_EDITION=${{ matrix.image.edition }} --build-arg DEVTOOL_OSVERSN=${{ matrix.image.os_version }} -f images/${{ matrix.image.os}}/Dockerfile .
+
+      - name: Save Docker image
+        run: docker save "${{ env.IMAGE_NAME }}" > "${{ env.TAR_NAME }}"
+
+      - name: Upload Docker image
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.image.os }}-${{ matrix.image.edition }}
+          path: ${{ env.TAR_NAME }}
+          compression-level: 9
+          retention-days: 14

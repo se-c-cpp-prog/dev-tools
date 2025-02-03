@@ -2,9 +2,14 @@
 
 set -euo pipefail
 
+# All LLVM version in non-default edition.
 llvm_versions=(17 18 19)
 
 LLVM_DEFAULT_VERSION=18
+
+if [[ "${DEVTOOL_EDITION}" == "default" ]]; then
+    llvm_versions=("${LLVM_DEFAULT_VERSION}")
+fi
 
 LLVM_APT_URL='https://apt.llvm.org'
 LLVM_INSTALL_SCRIPT='llvm.sh'
@@ -16,8 +21,7 @@ sudo apt-get install -y --no-install-recommends lsb-release wget software-proper
 wget "${LLVM_APT_URL}/${LLVM_INSTALL_SCRIPT}"
 
 # Install LLVM tools.
-for version in ${llvm_versions[@]}
-do
+for version in ${llvm_versions[@]}; do
     sudo bash "${LLVM_INSTALL_SCRIPT}" "${version}" all
 done
 

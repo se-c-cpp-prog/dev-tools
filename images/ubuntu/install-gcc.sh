@@ -2,13 +2,17 @@
 
 set -euo pipefail
 
+# All GCC version in non-default edition.
 gcc_versions=(10 11 12)
 
 GCC_DEFAULT_VERSION=11
 
+if [[ "${DEVTOOL_EDITION}" == "default" ]]; then
+    gcc_versions=("${GCC_DEFAULT_VERSION}")
+fi
+
 # Install GCC tools.
-for version in ${gcc_versions[@]}
-do
+for version in ${gcc_versions[@]}; do
     sudo apt-get install -y --no-install-recommends \
         gcc-"${version}" g++-"${version}" gcc-"${version}"-multilib g++-"${version}"-multilib
 done

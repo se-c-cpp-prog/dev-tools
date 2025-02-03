@@ -1,7 +1,11 @@
-FROM ubuntu:22.04
+ARG DEVTOOL_OSVERSN=22.04
+
+FROM ubuntu:${DEVTOOL_OSVERSN}
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV SDK_DIR=/sdk
+
+ARG DEVTOOL_EDITION=default
 
 # Set working directory to installations.
 WORKDIR /tmp
@@ -14,8 +18,8 @@ COPY ubuntu/base.sh .
 RUN bash base.sh
 
 # Install C/C++ compilers.
-COPY images/install-clang.sh .
-COPY images/install-gcc.sh .
+COPY images/ubuntu/install-clang.sh .
+COPY images/ubuntu/install-gcc.sh .
 RUN bash install-gcc.sh
 RUN bash install-clang.sh
 
