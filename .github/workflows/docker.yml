@@ -10,27 +10,31 @@ on:
 
 jobs:
   build:
-    name: "Building devtool: ${{ matrix.image.name }}"
+    name: "Building Linux ${{ matrix.image.arch }} ${{ matrix.edition }} devtool"
 
     strategy:
       fail-fast: true
 
       matrix:
         image:
-          - { name: Linux Default, os: ubuntu, os_version: 22.04, edition: default }
-          - { name: Linux Full,    os: ubuntu, os_version: 22.04, edition: full    }
+          - { arch: amd64, os: ubuntu, os_version: 22.04 }
+          - { arch: arm64, os: macos,  os_version: 14    }
+
+        edition:
+          - default
+          - full
 
     runs-on: ${{ matrix.image.os }}-${{ matrix.image.os_version }}
 
     env:
-      IMAGE_NAME: "se-c-cpp-prog/devtool:${{ matrix.image.os }}-${{ matrix.image.edition }}"
-      TAR_NAME: "devtool-${{ matrix.image.os }}-${{ matrix.image.edition }}.tar"
+      IMAGE_NAME: "se-c-cpp-prog/devtool:linux-${{ matrix.image.arch }}-${{ matrix.edition }}"
+      TAR_NAME: "devtool-${{ matrix.image.arch }}-${{ matrix.edition }}.tar"
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build --tag "${{ env.IMAGE_NAME }}" --build-arg DEVTOOL_EDITION=${{ matrix.image.edition }} --build-arg DEVTOOL_OSVERSN=${{ matrix.image.os_version }} -f images/${{ matrix.image.os}}/Dockerfile .
+        run: docker build --tag "${{ env.IMAGE_NAME }}" --build-arg DEVTOOL_EDITION=${{ matrix.edition }} -f images/ubuntu/Dockerfile .
 
       - name: Save Docker image
         run: docker save "${{ env.IMAGE_NAME }}" > "${{ env.TAR_NAME }}"
@@ -38,7 +42,7 @@ jobs:
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.image.os }}-${{ matrix.image.edition }}
+          name: linux-${{ matrix.image.arch }}-${{ matrix.edition }}
           path: ${{ env.TAR_NAME }}
           compression-level: 9
           retention-days: 14
