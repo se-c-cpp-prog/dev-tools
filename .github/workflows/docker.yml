@@ -10,15 +10,14 @@ on:
 
 jobs:
   build:
-    name: "Building Linux ${{ matrix.image.arch }} ${{ matrix.edition }} devtool"
+    name: "Building ${{ matrix.image.os_type }} ${{ matrix.edition }} devtool ${{ matrix.image.arch }}"
 
     strategy:
       fail-fast: true
 
       matrix:
         image:
-          - { arch: amd64, os: ubuntu, os_version: 22.04 }
-          - { arch: arm64, os: macos,  os_version: 14    }
+          - { arch: amd64, os: ubuntu, os_type: linux, os_version: 22.04 }
 
         edition:
           - default
@@ -27,20 +26,14 @@ jobs:
     runs-on: ${{ matrix.image.os }}-${{ matrix.image.os_version }}
 
     env:
-      IMAGE_NAME: "se-c-cpp-prog/devtool:linux-${{ matrix.image.arch }}-${{ matrix.edition }}"
-      TAR_NAME: "devtool-${{ matrix.image.arch }}-${{ matrix.edition }}.tar"
+      IMAGE_NAME: "se-c-cpp-prog/devtool:${{ matrix.image.os_type }}-${{ matrix.image.arch }}-${{ matrix.edition }}"
+      TAR_NAME: "devtool-${{ matrix.image.os_type }}-${{ matrix.image.arch }}-${{ matrix.edition }}.tar"
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Docker on MacOS
-        if: ${{ contains(matrix.image.os, 'macos') }}
-        run: |
-          brew install colima docker
-          colima start
-
       - name: Build Docker image
-        run: docker build --tag "${{ env.IMAGE_NAME }}" --build-arg DEVTOOL_EDITION=${{ matrix.edition }} -f images/ubuntu/Dockerfile .
+        run: docker build --tag "${{ env.IMAGE_NAME }}" --build-arg DEVTOOL_EDITION=${{ matrix.edition }} -f images/${{ matrix.image.os_type }}/Dockerfile .
 
       - name: Save Docker image
         run: docker save "${{ env.IMAGE_NAME }}" > "${{ env.TAR_NAME }}"
@@ -48,7 +41,7 @@ jobs:
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
         with:
-          name: linux-${{ matrix.image.arch }}-${{ matrix.edition }}
+          name: ${{ matrix.image.os_type }}-${{ matrix.image.arch }}-${{ matrix.edition }}
           path: ${{ env.TAR_NAME }}
           compression-level: 9
           retention-days: 14

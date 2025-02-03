@@ -16,8 +16,8 @@ COPY ubuntu/base.sh .
 RUN bash base.sh
 
 # Install C/C++ compilers.
-COPY images/ubuntu/install-clang.sh .
-COPY images/ubuntu/install-gcc.sh .
+COPY images/linux/install-clang.sh .
+COPY images/linux/install-gcc.sh .
 RUN bash install-gcc.sh
 RUN bash install-clang.sh
 
