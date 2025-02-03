@@ -33,8 +33,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Docker
-        uses: docker/setup-docker-action@v4
+      - name: Install Docker on MacOS
+        if: ${{ contains(matrix.image.os, 'macos') }}
+        run: brew install docker
 
       - name: Build Docker image
         run: docker build --tag "${{ env.IMAGE_NAME }}" --build-arg DEVTOOL_EDITION=${{ matrix.edition }} -f images/ubuntu/Dockerfile .
