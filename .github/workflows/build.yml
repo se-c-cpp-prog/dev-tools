@@ -70,4 +70,4 @@ jobs:
           path: ${{ matrix.library.name }}/
           compression-level: 9
           retention-days: 14
-          if-no-files-found: true
+          if-no-files-found: error
