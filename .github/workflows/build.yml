@@ -35,41 +35,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: aminya/setup-cpp@v1
+      - name: Install build tools
+        uses: aminya/setup-cpp@v1
         with:
           compiler: ${{ matrix.toolchain.compiler }}
           vcvarsall: ${{ contains(matrix.toolchain.os, 'windows') }}
           ninja: true
           cmake: true
 
-      - uses: ilammy/setup-nasm@v1.5.1
+      - name: Install NASM (Windows)
+        uses: ilammy/setup-nasm@v1.5.1
         if: ${{ contains(matrix.toolchain.os, 'windows') }}
 
-      - name: Install *nix base tools
+      - name: Install base tools (Unix)
         if: ${{ !contains(matrix.toolchain.os, 'windows') }}
         run: bash ${{ matrix.toolchain.os }}/base.sh
 
-      - name: Build ${{ matrix.library.name }} (*nix)
+      - name: Build ${{ matrix.library.name }} (Unix)
         if: ${{ !contains(matrix.toolchain.os, 'windows') }}
         shell: bash
         run: |
           bash ${{ matrix.toolchain.os }}/${{ matrix.library.name }}.sh "${{ matrix.library.version }}"
           mv ${{ matrix.library.name }}-install/ ${{ matrix.library.name }}/
-          zip -9 -r ${{ env.LIBRARY_BASENAME }}.zip ${{ matrix.library.name }}
-          zip --test ${{ env.LIBRARY_BASENAME }}.zip
 
-      - name: Build ${{ matrix.library.name }}
+      - name: Build ${{ matrix.library.name }} (Windows)
         if: ${{ contains(matrix.toolchain.os, 'windows') }}
         shell: powershell
         run: |
           powershell .\${{ matrix.toolchain.os }}\${{ matrix.library.name }}.ps1 "${{ matrix.library.version }}"
           mv .\${{ matrix.library.name }}-install\ .\${{ matrix.library.name }}\
-          Compress-Archive -CompressionLevel Optimal -Path .\${{ matrix.library.name }}\ -DestinationPath ${{ env.LIBRARY_BASENAME }}.zip
 
-      - name: Upload ${{ matrix.library.name }} artifact archive
+      - name: Upload ${{ matrix.library.name }} as artifact archive
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.LIBRARY_BASENAME }}
-          path: ${{ env.LIBRARY_BASENAME }}.zip
+          path: ${{ env.LIBRARY_BASENAME }}
           compression-level: 9
           retention-days: 14
