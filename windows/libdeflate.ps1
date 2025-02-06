@@ -3,7 +3,7 @@
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 
-$libdeflateVersion = '1.21'
+$libdeflateVersion = $args[0]
 
 $libdeflateUrl = 'https://github.com/ebiggers/libdeflate.git'
 

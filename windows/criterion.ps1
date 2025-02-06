@@ -3,7 +3,7 @@
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 
-$criterionVersion = '2.4.2'
+$criterionVersion = $args[0]
 
 $criterionUrl = 'https://github.com/Snaipe/Criterion.git'
 

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-ZLIB_VERSION='1.3.1'
+ZLIB_VERSION="${1}"
 
 ZLIB_URL='https://github.com/madler/zlib.git'
 

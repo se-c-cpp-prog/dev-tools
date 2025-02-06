@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-FFTW_VERSION='3.3.10'
+FFTW_VERSION="${1}"
 
 FFTW_URL='https://www.fftw.org'
 

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-FFMPEG_VERSION='6.1'
+FFMPEG_VERSION="${1}"
 
 FFMPEG_URL='https://git.ffmpeg.org/ffmpeg.git'
 

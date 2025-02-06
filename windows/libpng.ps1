@@ -3,7 +3,7 @@
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 
-$libpngVersion = '1.6.43'
+$libpngVersion = $args[0]
 
 $libpngUrl = 'https://download.sourceforge.net/libpng'
 

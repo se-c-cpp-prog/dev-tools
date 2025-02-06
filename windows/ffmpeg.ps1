@@ -3,7 +3,7 @@
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 
-$ffmpegVersion = '6.1'
+$ffmpegVersion = $args[0]
 
 $ffmpegUrl = 'https://git.ffmpeg.org/ffmpeg.git'
 

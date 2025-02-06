@@ -3,7 +3,7 @@
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 
-$zlibVersion = '1.3.1'
+$zlibVersion = $args[0]
 
 $zlibUrl = 'https://github.com/madler/zlib.git'
 

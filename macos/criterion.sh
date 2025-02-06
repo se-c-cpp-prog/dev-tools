@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-CRITERION_VERSION='2.4.2'
+CRITERION_VERSION="${1}"
 
 CRITERION_URL='https://github.com/Snaipe/Criterion.git'
 

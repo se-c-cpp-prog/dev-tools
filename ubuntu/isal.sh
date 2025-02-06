@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-ISAL_VERSION='2.31.0'
+ISAL_VERSION="${1}"
 
 ISAL_URL='https://github.com/intel/isa-l.git'
 

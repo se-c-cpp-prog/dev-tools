@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-LIBPNG_VERSION='1.6.43'
+LIBPNG_VERSION="${1}"
 
 LIBPNG_URL='https://download.sourceforge.net/libpng'
 

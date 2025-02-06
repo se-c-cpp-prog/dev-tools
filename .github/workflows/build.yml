@@ -9,124 +9,67 @@ on:
       - '.github/workflows/build.yml'
 
 jobs:
-  linux:
-    name: Building tools on Linux
+  build_artifacts:
+    name: Building tools (${{ matrix.library.name }} v${{ matrix.library.version }}) on ${{ matrix.toolchain.name }}
 
-    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: true
 
-    steps:
-      - uses: actions/checkout@v4
+      matrix:
+        toolchain:
+          - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-11        }
+          - { name: Windows, os: windows, os_version: 2019,  compiler: msvc-2019     }
+          - { name: macOS,   os: macos,   os_version: 14,    compiler: appleclang-18 }
 
-      - uses: aminya/setup-cpp@v1
-        with:
-          compiler: gcc-11
+        library:
+          - { name: googletest, version: 1.15.2 }
+          - { name: zlib,       version: 1.3.1 }
+          - { name: fftw,       version: 3.3.10 }
+          - { name: libdeflate, version: 1.21 }
+          - { name: ffmpeg,     version: 6.1 }
 
-      - name: Base tools
-        run: bash ubuntu/base.sh
-
-      - name: Criterion
-        run: bash ubuntu/criterion.sh
-
-      - name: GoogleTest
-        run: bash ubuntu/googletest.sh
-
-      - name: zlib
-        run: bash ubuntu/zlib.sh
-
-      - name: FFTW
-        run: bash ubuntu/fftw.sh
-
-      - name: libpng
-        run: bash ubuntu/libpng.sh
-
-      - name: libdeflate
-        run: bash ubuntu/libdeflate.sh
-
-      - name: isa-l
-        run: bash ubuntu/isal.sh
-
-      - name: FFmpeg
-        run: bash ubuntu/ffmpeg.sh
-
-  macos:
-    name: Building tools on MacOS
-
-    runs-on: macos-14
+    runs-on: ${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }}
+    env:
+      LIBRARY_BASENAME: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: aminya/setup-cpp@v1
         with:
-          compiler: appleclang-18
-
-      - name: Base tools
-        run: bash macos/base.sh
-  
-      - name: Criterion
-        run: bash macos/criterion.sh
-
-      - name: GoogleTest
-        run: bash macos/googletest.sh
-
-      - name: zlib
-        run: bash macos/zlib.sh
-
-      - name: FFTW
-        run: bash macos/fftw.sh
-
-      - name: libpng
-        run: bash macos/libpng.sh
-
-      - name: libdeflate
-        run: bash macos/libdeflate.sh
-
-      # TODO: Make ISA-L building again, when will be fixed.
-      # - name: isa-l
-      #   run: bash macos/isal.sh
-
-      - name: FFmpeg
-        run: bash macos/ffmpeg.sh
-
-  windows:
-    name: Building tools on Windows
-
-    runs-on: windows-2019
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: aminya/setup-cpp@v1
-        with:
-          compiler: msvc-2019
-          vcvarsall: true
+          compiler: ${{ matrix.toolchain.compiler }}
+          vcvarsall: ${{ contains(matrix.toolchain.os, 'windows') }}
           ninja: true
           cmake: true
 
       - uses: ilammy/setup-nasm@v1.5.1
+        if: ${{ contains(matrix.toolchain.os, 'windows') }}
 
-      # TODO: Fix me.
-      # - name: Criterion
-      #   run: powershell windows/criterion.ps1
+      - name: Install *nix base tools
+        if: ${{ !contains(matrix.toolchain.os, 'windows') }}
+        run: bash ${{ matrix.toolchain.os }}/base.sh
 
-      - name: GoogleTest
-        run: powershell windows/googletest.ps1
+      - name: Build ${{ matrix.library.name }} (*nix)
+        if: ${{ !contains(matrix.toolchain.os, 'windows') }}
+        shell: bash
+        run: |
+          bash ${{ matrix.toolchain.os }}/${{ matrix.library.name }}.sh "${{ matrix.library.version }}"
+          mv ${{ matrix.library.name }}-install/ ${{ matrix.library.name }}/
+          zip -9 -r ${{ env.LIBRARY_BASENAME }}.zip ${{ matrix.library.name }}
+          zip --test ${{ env.LIBRARY_BASENAME }}.zip
 
-      - name: zlib
-        run: powershell windows/zlib.ps1
+      - name: Build ${{ matrix.library.name }}
+        if: ${{ contains(matrix.toolchain.os, 'windows') }}
+        shell: powershell
+        run: |
+          powershell .\${{ matrix.toolchain.os }}\${{ matrix.library.name }}.ps1 "${{ matrix.library.version }}"
+          mv .\${{ matrix.library.name }}-install\ .\${{ matrix.library.name }}\
+          Compress-Archive -CompressionLevel Optimal -Path .\${{ matrix.library.name }}\ -DestinationPath ${{ env.LIBRARY_BASENAME }}.zip
 
-      - name: FFTW
-        run: powershell windows/fftw.ps1
-
-      # TODO: Fix me.
-      # - name: libpng
-      #   run: powershell windows/libpng.ps1
-
-      - name: libdeflate
-        run: powershell windows/libdeflate.ps1
-
-      - name: isa-l
-        run: powershell windows/isal.ps1
-
-      - name: FFmpeg
-        run: powershell windows/ffmpeg.ps1
+      - name: Upload ${{ matrix.library.name }} artifact archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.LIBRARY_BASENAME }}
+          path: ${{ env.LIBRARY_BASENAME }}.zip
+          compression-level: 9
+          retention-days: 14

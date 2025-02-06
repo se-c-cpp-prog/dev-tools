@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-GOOGLETEST_VERSION='1.15.2'
+GOOGLETEST_VERSION="${1}"
 
 GOOGLETEST_URL='https://github.com/google/googletest.git'
 

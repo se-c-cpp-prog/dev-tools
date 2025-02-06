@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-LIBDEFLATE_VERSION='1.21'
+LIBDEFLATE_VERSION="${1}"
 
 LIBDEFLATE_URL='https://github.com/ebiggers/libdeflate.git'
 

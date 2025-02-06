@@ -3,7 +3,7 @@
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 
-$googletestVersion = '1.15.2'
+$googletestVersion = $args[0]
 
 $googletestUrl = 'https://github.com/google/googletest.git'
 

@@ -3,7 +3,7 @@
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 
-$fftwVersion = '3.3.10'
+$fftwVersion = $args[0]
 
 $fftwUrl = 'https://www.fftw.org'
 
