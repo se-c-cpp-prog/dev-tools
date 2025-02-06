@@ -118,8 +118,9 @@ jobs:
       - name: FFTW
         run: powershell windows/fftw.ps1
 
-      - name: libpng
-        run: powershell windows/libpng.ps1
+      # TODO: Fix me.
+      # - name: libpng
+      #   run: powershell windows/libpng.ps1
 
       - name: libdeflate
         run: powershell windows/libdeflate.ps1
