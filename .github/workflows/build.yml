@@ -29,8 +29,6 @@ jobs:
           - { name: ffmpeg,     version: 6.1 }
 
     runs-on: ${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }}
-    env:
-      LIBRARY_BASENAME: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -68,7 +66,8 @@ jobs:
       - name: Upload ${{ matrix.library.name }} as artifact archive
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.LIBRARY_BASENAME }}
-          path: ${{ env.LIBRARY_BASENAME }}
+          name: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}.zip
+          path: ${{ matrix.library.name }}/
           compression-level: 9
           retention-days: 14
+          if-no-files-found: true
