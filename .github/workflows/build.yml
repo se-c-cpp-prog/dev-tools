@@ -18,7 +18,9 @@ jobs:
       matrix:
         toolchain:
           - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-11        }
+          - { name: Linux,   os: ubuntu,  os_version: 24.04, compiler: gcc-14        }
           - { name: Windows, os: windows, os_version: 2019,  compiler: msvc-2019     }
+          - { name: Windows, os: windows, os_version: 2022,  compiler: msvc-2022     }
           - { name: macOS,   os: macos,   os_version: 14,    compiler: appleclang-18 }
 
         library:
@@ -66,7 +68,7 @@ jobs:
       - name: Upload ${{ matrix.library.name }} as artifact archive
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}
+          name: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}-${{ matrix.toolchain.compiler }}
           path: ${{ matrix.library.name }}/
           compression-level: 9
           retention-days: 14
