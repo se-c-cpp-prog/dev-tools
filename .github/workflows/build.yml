@@ -10,25 +10,33 @@ on:
 
 jobs:
   build_artifacts:
-    name: Building tools (${{ matrix.library.name }} v${{ matrix.library.version }}) on ${{ matrix.toolchain.name }}
+    name: Building ${{ matrix.library.name }} v${{ matrix.library.version }} on ${{ matrix.toolchain.name }} (${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }} with ${{ matrix.toolchain.compiler }})
 
     strategy:
-      fail-fast: true
+      fail-fast: false
 
       matrix:
         toolchain:
+          - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-10        }
           - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-11        }
+          - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-12        }
+
+          - { name: Linux,   os: ubuntu,  os_version: 24.04, compiler: gcc-12        }
+          - { name: Linux,   os: ubuntu,  os_version: 24.04, compiler: gcc-13        }
           - { name: Linux,   os: ubuntu,  os_version: 24.04, compiler: gcc-14        }
+
           - { name: Windows, os: windows, os_version: 2019,  compiler: msvc-2019     }
           - { name: Windows, os: windows, os_version: 2022,  compiler: msvc-2022     }
+          - { name: Windows, os: windows, os_version: 2025,  compiler: msvc-2022     }
+
           - { name: macOS,   os: macos,   os_version: 14,    compiler: appleclang-18 }
 
         library:
           - { name: googletest, version: 1.15.2 }
-          - { name: zlib,       version: 1.3.1 }
+          - { name: zlib,       version: 1.3.1  }
           - { name: fftw,       version: 3.3.10 }
-          - { name: libdeflate, version: 1.21 }
-          - { name: ffmpeg,     version: 6.1 }
+          - { name: libdeflate, version: 1.21   }
+          - { name: ffmpeg,     version: 6.1    }
 
     runs-on: ${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }}
 
@@ -68,7 +76,7 @@ jobs:
       - name: Upload ${{ matrix.library.name }} as artifact archive
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}-${{ matrix.toolchain.compiler }}
+          name: ${{ matrix.library.name }}-${{ matrix.library.version }}-${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }}-${{ matrix.toolchain.compiler }}
           path: ${{ matrix.library.name }}/
           compression-level: 9
           retention-days: 14
