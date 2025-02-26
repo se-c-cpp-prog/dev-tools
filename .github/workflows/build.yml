@@ -25,9 +25,9 @@ jobs:
           - { name: Windows, os: windows, os_version: 2022,  compiler: msvc-2022     }
           - { name: Windows, os: windows, os_version: 2025,  compiler: msvc-2022     }
 
-          - { name: macOS,   os: macos,   os_version: 13,    compiler: clang-15      }
-          - { name: macOS,   os: macos,   os_version: 14,    compiler: clang-15      }
-          - { name: macOS,   os: macos,   os_version: 15,    compiler: clang-18      }
+          - { name: macOS,   os: macos,   os_version: 13,    compiler: appleclang-18 }
+          - { name: macOS,   os: macos,   os_version: 14,    compiler: appleclang-18 }
+          - { name: macOS,   os: macos,   os_version: 15,    compiler: appleclang-18 }
 
         library:
           - { name: googletest, version: 1.15.2 }
