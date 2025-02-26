@@ -21,7 +21,7 @@ mkdir "${ffmpegBuild}"
 # Turn on MSYS2 terminal.
 $msys2 = New-Object System.Diagnostics.Process
 
-$msys2.StartInfo.FileName = 'C:\msys64\msys2_shell.cmd' # windows-2022 image runner
+$msys2.StartInfo.FileName = 'C:\msys64\msys2_shell.cmd'
 $msys2.StartInfo.Arguments = '-here -use-full-path -no-start -defterm'
 $msys2.StartInfo.UseShellExecute = $false
 $msys2.StartInfo.RedirectStandardInput = $true

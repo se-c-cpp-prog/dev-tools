@@ -17,19 +17,17 @@ jobs:
 
       matrix:
         toolchain:
-          - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-10        }
-          - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-11        }
+          - { name: Linux,   os: ubuntu,  os_version: 20.04, compiler: gcc-10        }
           - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-12        }
-
-          - { name: Linux,   os: ubuntu,  os_version: 24.04, compiler: gcc-12        }
-          - { name: Linux,   os: ubuntu,  os_version: 24.04, compiler: gcc-13        }
           - { name: Linux,   os: ubuntu,  os_version: 24.04, compiler: gcc-14        }
 
           - { name: Windows, os: windows, os_version: 2019,  compiler: msvc-2019     }
           - { name: Windows, os: windows, os_version: 2022,  compiler: msvc-2022     }
           - { name: Windows, os: windows, os_version: 2025,  compiler: msvc-2022     }
 
-          - { name: macOS,   os: macos,   os_version: 14,    compiler: appleclang-18 }
+          - { name: macOS,   os: macos,   os_version: 13,    compiler: clang-15      }
+          - { name: macOS,   os: macos,   os_version: 14,    compiler: clang-15      }
+          - { name: macOS,   os: macos,   os_version: 15,    compiler: clang-18      }
 
         library:
           - { name: googletest, version: 1.15.2 }
@@ -76,7 +74,7 @@ jobs:
       - name: Upload ${{ matrix.library.name }} as artifact archive
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.library.name }}-${{ matrix.library.version }}-${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }}-${{ matrix.toolchain.compiler }}
+          name: ${{ matrix.library.name }}-${{ matrix.library.version }}-${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }}
           path: ${{ matrix.library.name }}/
           compression-level: 9
           retention-days: 14
