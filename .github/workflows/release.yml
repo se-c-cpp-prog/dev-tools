@@ -35,6 +35,8 @@ jobs:
           tag_name: ${{ inputs.tag_name }}
 
   stage2_build_artifacts:
+    name: Build and release ${{ matrix.library.name }} v${{ matrix.library.version }} on ${{ matrix.toolchain.name }} (${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }} with ${{ matrix.toolchain.compiler }})
+
     needs: stage1_init_release
 
     strategy:
@@ -42,9 +44,17 @@ jobs:
 
       matrix:
         toolchain:
-          - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-11        }
+          - { name: Linux,   os: ubuntu,  os_version: 20.04, compiler: gcc-10        }
+          - { name: Linux,   os: ubuntu,  os_version: 22.04, compiler: gcc-12        }
+          - { name: Linux,   os: ubuntu,  os_version: 24.04, compiler: gcc-14        }
+
           - { name: Windows, os: windows, os_version: 2019,  compiler: msvc-2019     }
+          - { name: Windows, os: windows, os_version: 2022,  compiler: msvc-2022     }
+          - { name: Windows, os: windows, os_version: 2025,  compiler: msvc-2022     }
+
+          - { name: macOS,   os: macos,   os_version: 13,    compiler: appleclang-18 }
           - { name: macOS,   os: macos,   os_version: 14,    compiler: appleclang-18 }
+          - { name: macOS,   os: macos,   os_version: 15,    compiler: appleclang-18 }
 
         library:
           - { name: googletest, version: 1.15.2 }
@@ -55,7 +65,7 @@ jobs:
 
     runs-on: ${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }}
     env:
-      LIBRARY_BASENAME: ${{ matrix.toolchain.os }}-${{ matrix.library.name }}-${{ matrix.library.version }}
+      LIBRARY_BASENAME: ${{ matrix.library.name }}-${{ matrix.library.version }}-${{ matrix.toolchain.os }}-${{ matrix.toolchain.os_version }}
 
     steps:
       - uses: actions/checkout@v4
