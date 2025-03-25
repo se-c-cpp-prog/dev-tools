@@ -1,0 +1,66 @@
+name: Build GoogleTest
+
+on:
+  push:
+
+env:
+  GOOGLETEST_PATH: src
+  GOOGLETEST_URL: google/googletest
+  GOOGLETEST_VERSION: 1.15.2
+  CMAKE_COMMON: -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX="../googletest/"
+
+jobs:
+  stage1_build_googletest:
+    name: Building GoogleTest ${{ matrix.arhitecture.name }} on ${{ matrix.toolchain.name }} ${{ matrix.toolchain.os_version }}
+
+    strategy:
+      fail-fast: true
+
+      matrix:
+        toolchain:
+          - { name: Linux,   runner_name: ubuntu,  runner_vers: 24.04, compiler: gcc-14    }
+          - { name: Windows, runner_name: windows, runner_vers: 2022,  compiler: msvc-2022 }
+
+        arhitecture:
+          - { name: x86, cmake_windows: -A Win32, cmake_linux: -D CMAKE_CXX_FLAGS=-m32 -D CMAKE_C_FLAGS=-m32 }
+          - { name: x64, cmake_windows: -A x64,   cmake_linux: -D CMAKE_CXX_FLAGS=-m64 -D CMAKE_C_FLAGS=-m64 }
+
+    runs-on: ${{ matrix.toolchain.runner_name }}-${{ matrix.toolchain.runner_vers }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download GoogleTest
+        uses: actions/checkout@v4
+        with:
+          ref: v${{ env.GOOGLETEST_VERSION }}
+          repository: ${{ env.GOOGLETEST_URL }}
+          path: ${{ env.GOOGLETEST_PATH }}
+
+      - name: Install build tools
+        uses: aminya/setup-cpp@v1
+        with:
+          compiler: ${{ matrix.toolchain.compiler }}
+          vcvarsall: ${{ matrix.toolchain.name == 'Windows' }}
+          ninja: true
+          cmake: true
+
+      - name: Build (Windows)
+        if: ${{ matrix.toolchain.name == 'Windows' }}
+        shell: bash
+        run: |
+          mkdir -v googletest
+          pushd ${{ env.GOOGLETEST_PATH }}
+            cmake . ${{ matrix.arhitecture.cmake_windows }} ${{ env.CMAKE_COMMON }}
+            cmake --build . --target install --config Release
+          popd
+
+      - name: Build (Linux)
+        if: ${{ matrix.toolchain.name == 'Linux' }}
+        shell: bash
+        run: |
+          mkdir -v googletest
+          pushd ${{ env.GOOGLETEST_PATH }}
+            cmake . ${{ matrix.arhitecture.cmake_linux }} ${{ env.CMAKE_COMMON }}
+            cmake --build . --target install
+          popd
