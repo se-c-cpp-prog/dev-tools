@@ -14,12 +14,12 @@ jobs:
     name: Building GoogleTest ${{ matrix.arhitecture.name }} on ${{ matrix.toolchain.name }} ${{ matrix.toolchain.os_version }}
 
     strategy:
-      fail-fast: true
+      fail-fast: false
 
       matrix:
         toolchain:
-          - { name: Linux,   runner_name: ubuntu,  runner_vers: 24.04, compiler: gcc-14    }
-          - { name: Windows, runner_name: windows, runner_vers: 2022,  compiler: msvc-2022 }
+          - { name: Linux,   runner_name: ubuntu,  runner_vers: 24.04, use_compiler: gcc,  compiler_version: 14   }
+          - { name: Windows, runner_name: windows, runner_vers: 2022,  use_compiler: msvc, compiler_version: 2022 }
 
         arhitecture:
           - { name: x86, cmake_windows: -A Win32, cmake_linux: -D CMAKE_CXX_FLAGS=-m32 -D CMAKE_C_FLAGS=-m32 }
@@ -40,10 +40,16 @@ jobs:
       - name: Install build tools
         uses: aminya/setup-cpp@v1
         with:
-          compiler: ${{ matrix.toolchain.compiler }}
+          compiler: ${{ matrix.toolchain.use_compiler }}-${{ matrix.toolchain.compiler_version }}
           vcvarsall: ${{ matrix.toolchain.name == 'Windows' }}
           ninja: true
           cmake: true
+
+      - name: Install base tools (Linux)
+        if: ${{ matrix.toolchain.name == 'Linux' }}
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y gcc-${{ matrix.toolchain.compiler_version }}-multilib g++-${{ matrix.toolchain.compiler_version }}-multilib
 
       - name: Build (Windows)
         if: ${{ matrix.toolchain.name == 'Windows' }}
