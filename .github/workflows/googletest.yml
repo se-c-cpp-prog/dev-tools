@@ -24,7 +24,7 @@ jobs:
 
           - { name: Windows, runner_name: windows, runner_vers: 2019,  use_compiler: msvc, compiler_version: 2019 }
           - { name: Windows, runner_name: windows, runner_vers: 2022,  use_compiler: msvc, compiler_version: 2022 }
-          - { name: Windows, runner_name: windows, runner_vers: 2022,  use_compiler: msvc, compiler_version: 2025 }
+          - { name: Windows, runner_name: windows, runner_vers: 2025,  use_compiler: msvc, compiler_version: 2022 }
 
         arhitecture:
           - { name: x86, cmake_windows: -A Win32, cmake_linux: -D CMAKE_CXX_FLAGS=-m32 -D CMAKE_C_FLAGS=-m32 }
