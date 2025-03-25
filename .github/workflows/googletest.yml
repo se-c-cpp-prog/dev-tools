@@ -79,7 +79,7 @@ jobs:
       - name: Upload GoogleTest as artifact archive
         uses: actions/upload-artifact@v4
         with:
-          name: googletest-${{ env.GOOGLETEST_VERSION }}-${{ matrix.toolchain.runner_name }}-${{ matrix.toolchain.runner_vers }}
+          name: googletest-${{ env.GOOGLETEST_VERSION }}-${{ matrix.toolchain.runner_name }}-${{ matrix.toolchain.runner_vers }}-${{ matrix.arhitecture.name }}
           path: googletest/
           compression-level: 9
           retention-days: 14
