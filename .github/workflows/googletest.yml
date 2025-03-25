@@ -11,15 +11,20 @@ env:
 
 jobs:
   stage1_build_googletest:
-    name: Building GoogleTest ${{ matrix.arhitecture.name }} on ${{ matrix.toolchain.name }} ${{ matrix.toolchain.os_version }}
+    name: Building GoogleTest ${{ matrix.arhitecture.name }} on ${{ matrix.toolchain.name }}/${{ matrix.toolchain.runner_name }}-${{ matrix.toolchain.runner_vers }} ${{ matrix.toolchain.os_version }}
 
     strategy:
       fail-fast: false
 
       matrix:
         toolchain:
+          - { name: Linux,   runner_name: ubuntu,  runner_vers: 20.04, use_compiler: gcc,  compiler_version: 10   }
+          - { name: Linux,   runner_name: ubuntu,  runner_vers: 22.04, use_compiler: gcc,  compiler_version: 12   }
           - { name: Linux,   runner_name: ubuntu,  runner_vers: 24.04, use_compiler: gcc,  compiler_version: 14   }
+
+          - { name: Windows, runner_name: windows, runner_vers: 2019,  use_compiler: msvc, compiler_version: 2019 }
           - { name: Windows, runner_name: windows, runner_vers: 2022,  use_compiler: msvc, compiler_version: 2022 }
+          - { name: Windows, runner_name: windows, runner_vers: 2022,  use_compiler: msvc, compiler_version: 2025 }
 
         arhitecture:
           - { name: x86, cmake_windows: -A Win32, cmake_linux: -D CMAKE_CXX_FLAGS=-m32 -D CMAKE_C_FLAGS=-m32 }
@@ -70,3 +75,12 @@ jobs:
             cmake . ${{ matrix.arhitecture.cmake_linux }} ${{ env.CMAKE_COMMON }}
             cmake --build . --target install
           popd
+
+      - name: Upload GoogleTest as artifact archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: googletest-${{ env.GOOGLETEST_VERSION }}-${{ matrix.toolchain.runner_name }}-${{ matrix.toolchain.runner_vers }}
+          path: googletest/
+          compression-level: 9
+          retention-days: 14
+          if-no-files-found: error
