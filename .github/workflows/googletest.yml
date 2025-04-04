@@ -7,7 +7,7 @@ env:
   GOOGLETEST_PATH: src
   GOOGLETEST_URL: google/googletest
   GOOGLETEST_VERSION: 1.15.2
-  CMAKE_COMMON: -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX="../googletest/"
+  CMAKE_COMMON: -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX="../googletest/" -D BUILD_SHARED_LIBS=ON
 
 jobs:
   stage1_build_googletest:
